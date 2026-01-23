@@ -1230,7 +1230,7 @@ export default function Presentation() {
                     'Automated 12-step lifecycle (minutes)',
                     'Consistent, rule-based outcomes',
                     'Compliance encoded & enforced',
-                    '60-80% cost reduction',
+                    '60% cost reduction',
                     'Complete audit trail & versioning',
                     'Direct Mastercom API integration'
                   ].map((item, i) => (
@@ -1257,8 +1257,8 @@ export default function Presentation() {
             <div className="flex-1 flex flex-col justify-center gap-10">
               <div className="flex gap-16 justify-center">
                 {[
-                  { value: '60-80%', label: 'Cost Reduction', desc: 'Per dispute processing' },
-                  { value: '90%', label: 'Faster Resolution', desc: 'Days to minutes' },
+                  { value: '60%', label: 'Cost Reduction', desc: '$30 → $12 per dispute' },
+                  { value: '90%+', label: 'Faster Resolution', desc: 'Days reduced to minutes' },
                   { value: '100%', label: 'Audit Coverage', desc: 'Exam-ready documentation' },
                 ].map((m, i) => (
                   <div key={i} className="flex flex-col gap-2 pl-8" style={{ borderLeft: `3px solid ${colors.accent}` }}>
@@ -1275,11 +1275,31 @@ export default function Presentation() {
                 ))}
               </div>
 
-              <Card dark className="text-center py-8 px-12">
-                <div className="text-xl font-medium mb-2">Example: 5,000 disputes/month as Yendo scales</div>
-                <div className="opacity-50 text-lg">
-                  At $30/dispute manual → $12/dispute with Salient ={' '}
-                  <span className="font-bold" style={{color: colors.accent}}>$90,000/month saved</span>
+              <Card dark className="py-8 px-12">
+                <div className="text-xl font-medium mb-4 text-center">Projected Savings at Scale</div>
+                <div className="flex items-center justify-center gap-8 text-base">
+                  <div className="text-center">
+                    <div className="opacity-50 text-sm mb-1">Volume</div>
+                    <div className="font-semibold">5,000/mo</div>
+                  </div>
+                  <div className="opacity-30">×</div>
+                  <div className="text-center">
+                    <div className="opacity-50 text-sm mb-1">Savings</div>
+                    <div className="font-semibold">$18/dispute</div>
+                  </div>
+                  <div className="opacity-30">=</div>
+                  <div className="text-center">
+                    <div className="opacity-50 text-sm mb-1">Monthly</div>
+                    <div className="font-semibold" style={{color: colors.accent}}>$90,000</div>
+                  </div>
+                  <div className="opacity-30">→</div>
+                  <div className="text-center">
+                    <div className="opacity-50 text-sm mb-1">Annual</div>
+                    <div className="font-semibold" style={{color: colors.accent}}>$1.08M</div>
+                  </div>
+                </div>
+                <div className="text-center mt-4 opacity-40 text-sm">
+                  Based on $30 manual cost → $12 with Salient
                 </div>
               </Card>
             </div>
