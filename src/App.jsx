@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, Car, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers } from 'lucide-react';
+import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, Car, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, CircleDot, File, MessageSquare } from 'lucide-react';
 
 // Salient Brand Colors
 const colors = {
@@ -7,12 +7,16 @@ const colors = {
   creamSecondary: '#F6F0E9',
   charcoal: '#0F0F0F',
   muted: 'rgba(15, 15, 15, 0.6)',
+  accent: '#C9A962', // Warm gold accent
+  accentMuted: 'rgba(201, 169, 98, 0.15)',
+  success: '#3D7C5E', // Muted sophisticated green
+  error: '#9B4D4D', // Muted sophisticated red
 };
 
 // Slide Canvas - Base container with consistent padding and typography
-const SlideCanvas = ({ children, theme = 'light' }) => (
-  <div 
-    className="w-full h-full p-12 flex flex-col justify-between overflow-hidden"
+const SlideCanvas = ({ children, theme = 'light', centered = false }) => (
+  <div
+    className={`w-full h-full p-12 flex flex-col overflow-hidden relative ${centered ? 'justify-center items-center' : 'justify-start gap-8'}`}
     style={{
       backgroundColor: theme === 'light' ? colors.cream : theme === 'secondary' ? colors.creamSecondary : colors.charcoal,
       color: theme === 'dark' ? 'white' : colors.charcoal,
@@ -23,18 +27,25 @@ const SlideCanvas = ({ children, theme = 'light' }) => (
   </div>
 );
 
-// Badge Component - Breadcrumb for slide context
+// Badge Component - Breadcrumb for slide context with subtle accent
 const Badge = ({ children, light = false }) => (
-  <span 
-    className="px-3 py-1 text-[10px] uppercase tracking-widest font-semibold w-fit"
-    style={{
-      backgroundColor: light ? 'rgba(255,255,255,0.15)' : colors.charcoal,
-      color: light ? 'white' : 'white',
-      borderRadius: '24px',
-    }}
-  >
-    {children}
-  </span>
+  <div className="flex items-center gap-3">
+    <div
+      className="w-1 h-4 rounded-full"
+      style={{ backgroundColor: light ? 'rgba(255,255,255,0.4)' : colors.accent }}
+    />
+    <span
+      className="px-3 py-1.5 text-[10px] uppercase tracking-widest font-semibold"
+      style={{
+        backgroundColor: light ? 'rgba(255,255,255,0.1)' : colors.charcoal,
+        color: 'white',
+        borderRadius: '24px',
+        border: light ? '1px solid rgba(255,255,255,0.1)' : 'none',
+      }}
+    >
+      {children}
+    </span>
+  </div>
 );
 
 // Metric Component - Big data display
@@ -60,15 +71,18 @@ const Metric = ({ value, label, description, light = false }) => (
   </div>
 );
 
-// Card Component with consistent 24px radius
+// Card Component with consistent 24px radius and premium shadows
 const Card = ({ children, dark = false, className = '' }) => (
-  <div 
-    className={`p-5 ${className}`}
+  <div
+    className={`p-6 transition-all duration-200 ${className}`}
     style={{
       backgroundColor: dark ? colors.charcoal : 'white',
       color: dark ? 'white' : colors.charcoal,
       borderRadius: '24px',
-      border: dark ? 'none' : '1px solid rgba(0,0,0,0.05)',
+      border: dark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.04)',
+      boxShadow: dark
+        ? '0 4px 24px rgba(0,0,0,0.3)'
+        : '0 4px 20px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02)',
     }}
   >
     {children}
@@ -84,6 +98,7 @@ const slides = [
   { id: 'solution-intro', type: 'solution-intro' },
   { id: 'why-salient', type: 'why-salient' },
   { id: 'lifecycle-overview', type: 'lifecycle-overview' },
+  { id: 'claims-ui', type: 'claims-ui' },
   { id: 'phase-1', type: 'phase-1' },
   { id: 'phase-2', type: 'phase-2' },
   { id: 'phase-3', type: 'phase-3' },
@@ -102,7 +117,7 @@ export default function Presentation() {
   const prev = () => setCurrent(c => Math.max(0, c - 1));
   const next = () => setCurrent(c => Math.min(slides.length - 1, c + 1));
 
-  const headerStyle = { fontFamily: 'Halant, Georgia, serif', lineHeight: '0.95' };
+  const headerStyle = { fontFamily: 'Halant, Georgia, serif', lineHeight: '0.9', letterSpacing: '-0.02em' };
 
   const renderSlide = () => {
     const slide = slides[current];
@@ -111,36 +126,50 @@ export default function Presentation() {
       // TITLE SLIDE - Centered, High-impact opening
       case 'title':
         return (
-          <SlideCanvas theme="light">
-            <div></div>
-            <div className="flex flex-col items-center text-center gap-6">
-              <span 
-                className="text-2xl font-semibold tracking-[0.3em]"
+          <SlideCanvas theme="light" centered>
+            <div className="flex flex-col items-center text-center gap-8">
+              <span
+                className="text-xl font-medium tracking-[0.35em] opacity-70"
                 style={{ fontFamily: 'Halant, Georgia, serif', color: colors.charcoal }}
               >
                 SALIENT
               </span>
-              <h1 
-                className="text-7xl max-w-4xl"
-                style={headerStyle}
+              <h1
+                className="text-8xl max-w-5xl"
+                style={{...headerStyle, fontWeight: 400}}
               >
                 AI-Powered Dispute Resolution
               </h1>
-              <p className="text-xl opacity-60 max-w-2xl">
+              <p className="text-lg opacity-50 max-w-2xl mt-2">
                 Built for Yendo's Vehicle-Secured Credit Card
               </p>
-              <div className="flex items-center gap-4 mt-4">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white border border-black/5 text-sm" style={{borderRadius: '24px'}}>
-                  <CreditCard className="w-4 h-4 opacity-60" />
-                  <span className="opacity-80">Mastercard Network</span>
+              <div className="flex items-center gap-4 mt-8">
+                <div
+                  className="flex items-center gap-3 px-5 py-2.5 text-sm transition-all duration-200"
+                  style={{
+                    backgroundColor: 'white',
+                    borderRadius: '24px',
+                    border: '1px solid rgba(0,0,0,0.06)',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.04)'
+                  }}
+                >
+                  <CreditCard className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                  <span className="opacity-70">Mastercard Network</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white border border-black/5 text-sm" style={{borderRadius: '24px'}}>
-                  <Car className="w-4 h-4 opacity-60" />
-                  <span className="opacity-80">Vehicle-Secured Lending</span>
+                <div
+                  className="flex items-center gap-3 px-5 py-2.5 text-sm transition-all duration-200"
+                  style={{
+                    backgroundColor: 'white',
+                    borderRadius: '24px',
+                    border: '1px solid rgba(0,0,0,0.06)',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.04)'
+                  }}
+                >
+                  <Car className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                  <span className="opacity-70">Vehicle-Secured Lending</span>
                 </div>
               </div>
             </div>
-            <div></div>
           </SlideCanvas>
         );
       
@@ -212,7 +241,7 @@ export default function Presentation() {
                   <Metric value="$50M" label="Series B (Oct 2025)" />
                 </div>
                 <Card dark className="text-center py-4">
-                  <p className="text-sm">When we partner with data & tech-first companies like Yendo, we ship in <span className="font-semibold">weeks—not years</span>.</p>
+                  <p className="text-sm">When we partner with data & tech-first companies like Yendo, we ship in <span className="font-semibold">weeks, not years</span>.</p>
                 </Card>
               </div>
             </div>
@@ -223,11 +252,11 @@ export default function Presentation() {
       case 'problem':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Badge>The Problem</Badge>
               <h2 className="text-5xl max-w-3xl" style={headerStyle}>Disputes Today: Manual & Unstructured</h2>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-6">
               {[
                 { icon: AlertTriangle, title: 'Manual Investigation', desc: 'Analysts dig through multiple systems, relying on tribal knowledge and inconsistent judgment calls.' },
@@ -236,10 +265,10 @@ export default function Presentation() {
               ].map((item, i) => (
                 <Card key={i} className="space-y-4">
                   <div className="w-12 h-12 flex items-center justify-center" style={{backgroundColor: colors.creamSecondary, borderRadius: '24px'}}>
-                    <item.icon className="w-5 h-5 opacity-60" />
+                    <item.icon className="w-5 h-5 opacity-50" strokeWidth={1.5} />
                   </div>
                   <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-sm opacity-60 leading-relaxed">{item.desc}</p>
+                  <p className="text-sm opacity-50 leading-relaxed">{item.desc}</p>
                 </Card>
               ))}
             </div>
@@ -250,11 +279,11 @@ export default function Presentation() {
       case 'impact':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Badge>The Impact</Badge>
               <h2 className="text-5xl max-w-3xl" style={headerStyle}>The Real Cost of Status Quo</h2>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-6">
               {[
                 { icon: Clock, title: 'Slow Resolution', desc: 'MC allows 45-day cycles—manual burns time', dark: false },
@@ -263,18 +292,18 @@ export default function Presentation() {
                 { icon: DollarSign, title: 'High Cost', desc: '$25-40+ per dispute with manual processes', dark: false },
               ].map((item, i) => (
                 <Card key={i} dark={item.dark} className="flex items-center gap-6">
-                  <div 
+                  <div
                     className="w-14 h-14 flex items-center justify-center flex-shrink-0"
                     style={{
-                      backgroundColor: item.dark ? 'rgba(255,255,255,0.1)' : colors.creamSecondary, 
+                      backgroundColor: item.dark ? 'rgba(255,255,255,0.1)' : colors.creamSecondary,
                       borderRadius: '24px'
                     }}
                   >
-                    <item.icon className="w-6 h-6 opacity-60" />
+                    <item.icon className="w-6 h-6 opacity-50" strokeWidth={1.5} />
                   </div>
                   <div>
                     <h3 className="text-xl" style={headerStyle}>{item.title}</h3>
-                    <p className="text-sm opacity-60">{item.desc}</p>
+                    <p className="text-sm opacity-50">{item.desc}</p>
                   </div>
                 </Card>
               ))}
@@ -285,23 +314,24 @@ export default function Presentation() {
       // TRANSITION SLIDE - Dark mode, reset the room
       case 'solution-intro':
         return (
-          <SlideCanvas theme="dark">
-            <Badge light>The Solution</Badge>
-            <div className="flex flex-col items-center text-center gap-6">
-              <span 
-                className="text-2xl font-semibold tracking-[0.3em] opacity-80"
+          <SlideCanvas theme="dark" centered>
+            <div className="absolute top-16 left-16">
+              <Badge light>The Solution</Badge>
+            </div>
+            <div className="flex flex-col items-center text-center gap-8">
+              <span
+                className="text-lg font-medium tracking-[0.4em] opacity-60"
                 style={{ fontFamily: 'Halant, Georgia, serif' }}
               >
                 SALIENT
               </span>
-              <h1 className="text-6xl max-w-3xl" style={headerStyle}>
+              <h1 className="text-7xl max-w-4xl" style={{...headerStyle, fontWeight: 400}}>
                 AI agents built for US consumer lenders.
               </h1>
-              <p className="text-lg opacity-50 max-w-2xl">
+              <p className="text-lg opacity-40 max-w-2xl mt-4 leading-relaxed">
                 End-to-end dispute lifecycle automation with compliance-first AI that fits how lenders are supervised and examined.
               </p>
             </div>
-            <div></div>
           </SlideCanvas>
         );
 
@@ -309,34 +339,34 @@ export default function Presentation() {
       case 'why-salient':
         return (
           <SlideCanvas theme="dark">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Badge light>Why Salient</Badge>
-              <h2 className="text-4xl max-w-3xl" style={headerStyle}>Purpose-built AI for regulated lending</h2>
+              <h2 className="text-5xl max-w-3xl" style={headerStyle}>Purpose-built AI for regulated lending</h2>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-6">
               {[
                 { icon: Shield, title: 'Compliance-first for US lending', desc: 'Built around the realities of US consumer-lending regulation and supervision—CFPB, OCC, FDIC, NCUA, and state regulators.' },
                 { icon: Settings, title: 'Back-office workflow automation', desc: 'Our agents run full workflows end-to-end—from intake through documentation and system updates.' },
                 { icon: Brain, title: 'Borrower-level memory', desc: 'Every interaction is informed by history: prior calls, promises, hardship notes, disputes, and claims.' },
               ].map((item, i) => (
-                <div 
-                  key={i} 
-                  className="p-6 space-y-4"
+                <div
+                  key={i}
+                  className="p-7 space-y-5"
                   style={{
-                    backgroundColor: 'rgba(255,255,255,0.05)',
+                    backgroundColor: 'rgba(255,255,255,0.03)',
                     borderRadius: '24px',
-                    border: '1px solid rgba(255,255,255,0.1)'
+                    border: '1px solid rgba(255,255,255,0.08)'
                   }}
                 >
-                  <div 
+                  <div
                     className="w-12 h-12 flex items-center justify-center"
-                    style={{backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '24px'}}
+                    style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px'}}
                   >
-                    <item.icon className="w-5 h-5 opacity-60" />
+                    <item.icon className="w-5 h-5 opacity-50" strokeWidth={1.5} />
                   </div>
                   <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-sm opacity-50 leading-relaxed">{item.desc}</p>
+                  <p className="text-sm opacity-40 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -380,41 +410,209 @@ export default function Presentation() {
           </SlideCanvas>
         );
 
+      // CLAIMS INVESTIGATION UI - Product mockup
+      case 'claims-ui':
+        return (
+          <div
+            className="w-full h-full p-10 flex flex-col gap-4 overflow-hidden relative"
+            style={{
+              backgroundColor: colors.creamSecondary,
+              color: colors.charcoal,
+              fontFamily: 'Geist, system-ui, sans-serif',
+            }}
+          >
+            <div className="flex flex-col gap-2">
+              <Badge>Product Preview</Badge>
+              <h2 className="text-3xl max-w-3xl" style={headerStyle}>Claims Investigation Interface</h2>
+            </div>
+
+            <div className="flex-1 flex gap-3 min-h-0">
+              {/* Left Panel - Case Info */}
+              <div className="w-[280px] flex flex-col gap-2 overflow-hidden">
+                {/* Cardholder Info */}
+                <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm">
+                  <div className="flex items-center gap-2 text-[9px] uppercase tracking-wider opacity-40 mb-1">
+                    <User className="w-3 h-3" strokeWidth={1.5} />
+                    Cardholder
+                  </div>
+                  <div className="font-semibold text-xs">BRENDAN PETERSON</div>
+                  <div className="text-[10px] opacity-50 space-y-0 mt-1">
+                    <div className="flex items-center gap-1.5"><Mail className="w-2.5 h-2.5" strokeWidth={1.5} /> ajpu99@gmail.com</div>
+                    <div className="flex items-center gap-1.5"><Phone className="w-2.5 h-2.5" strokeWidth={1.5} /> (352) 215-4731</div>
+                    <div className="flex items-center gap-1.5"><MapPin className="w-2.5 h-2.5" strokeWidth={1.5} /> Micanopy, FL 32667</div>
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-black/5 flex justify-between text-[9px]">
+                    <div><span className="opacity-40">Account</span> <span className="font-mono font-medium">60823895</span></div>
+                    <div><span className="opacity-40">Card</span> <span className="font-mono">••••7439</span></div>
+                  </div>
+                </div>
+
+                {/* Disputed Transaction */}
+                <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm">
+                  <div className="flex items-center gap-2 text-[9px] uppercase tracking-wider opacity-40 mb-1">
+                    <AlertTriangle className="w-2.5 h-2.5" strokeWidth={1.5} />
+                    Disputed Transaction
+                  </div>
+                  <div className="text-[10px] font-medium">CLIP MX+ROSA Y BONITA SOLIDARIDAD MX</div>
+                  <div className="text-[9px] opacity-40">Sep 1, 2025 • MCC: 7230</div>
+                  <div className="text-lg font-semibold mt-1" style={{fontFamily: 'Halant, Georgia, serif'}}>$1,029.55</div>
+                </div>
+
+                {/* Documentation */}
+                <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm flex-1 overflow-hidden">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 text-[9px] uppercase tracking-wider opacity-40">
+                      <FileText className="w-2.5 h-2.5" strokeWidth={1.5} />
+                      Documentation (21)
+                    </div>
+                    <div className="text-[8px] px-1.5 py-0.5 rounded-full" style={{backgroundColor: colors.accentMuted, color: colors.accent}}>
+                      Generate All
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    {[
+                      { name: 'DF#440330927', date: 'Oct 14, 2025', icon: File },
+                      { name: 'Read New Corr.', date: 'Sep 23, 2025', icon: MessageSquare },
+                      { name: 'Credit One Bank: Message...', date: 'Sep 16, 2025', icon: Mail },
+                      { name: 'Denial Narrative', date: 'Sep 16, 2025', icon: FileText },
+                    ].map((doc, i) => (
+                      <div key={i} className="flex items-center gap-1.5 p-1.5 rounded-lg hover:bg-black/[0.02] text-[9px]">
+                        <doc.icon className="w-2.5 h-2.5 opacity-40" strokeWidth={1.5} />
+                        <div className="flex-1 truncate">
+                          <div className="font-medium truncate">{doc.name}</div>
+                          <div className="opacity-40 text-[8px]">{doc.date}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Panel - AI Analysis */}
+              <div className="flex-1 flex flex-col gap-2 overflow-hidden">
+                {/* Recommendation Header */}
+                <div className="rounded-xl p-3 border-2" style={{backgroundColor: 'rgba(155, 77, 77, 0.05)', borderColor: 'rgba(155, 77, 77, 0.2)'}}>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <XCircle className="w-4 h-4" style={{color: colors.error}} strokeWidth={1.5} />
+                      <span className="text-sm font-semibold">Recommend: <span style={{color: colors.error}}>DENY</span></span>
+                      <span className="text-[8px] px-1.5 py-0.5 rounded-full font-semibold" style={{backgroundColor: colors.error, color: 'white'}}>
+                        HIGH CONFIDENCE
+                      </span>
+                    </div>
+                    <span className="text-[9px] opacity-40">Actual Outcome: Resolved-Denied ✓</span>
+                  </div>
+                  <p className="text-[10px] opacity-60 leading-relaxed">
+                    Brendan Peterson's claim of fraud is undermined by inconsistencies in his statements regarding card possession and confirmation from the merchant that the card was used for the transaction.
+                  </p>
+                </div>
+
+                {/* Analysis Grid */}
+                <div className="flex-1 grid grid-cols-2 gap-2 min-h-0">
+                  {/* What Customer Claims */}
+                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
+                    <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">What the Customer Claims</div>
+                    <p className="text-[10px] opacity-70 leading-relaxed">
+                      Brendan Peterson claims that a fraudulent transaction of $1,029.55 occurred on his card, which he asserts he had in his possession at all times.
+                    </p>
+                    <div className="mt-2 pt-2 border-t border-black/5">
+                      <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">Timeline</div>
+                      <div className="space-y-0.5 text-[9px] opacity-60">
+                        <div>• 09/02/2025 - Transaction occurred</div>
+                        <div>• 09/08/2025 - Reported as fraudulent</div>
+                        <div>• 01/13/2026 - Requests to reopen claim</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Our Assessment */}
+                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
+                    <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">Our Assessment</div>
+                    <p className="text-[10px] opacity-70 leading-relaxed">
+                      The evidence suggests inconsistencies in Brendan's claims. Initial statements confirm he had the card, but later communications indicate uncertainty.
+                    </p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="text-[9px] opacity-40">Credibility:</span>
+                      <span className="text-[10px] font-semibold" style={{color: colors.error}}>Low</span>
+                    </div>
+                  </div>
+
+                  {/* Red Flags */}
+                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wider mb-1" style={{color: colors.error}}>
+                      <Flag className="w-2.5 h-2.5" strokeWidth={1.5} />
+                      Red Flags (2)
+                    </div>
+                    <div className="space-y-1.5 text-[9px]">
+                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(155, 77, 77, 0.05)'}}>
+                        <span className="opacity-70">Inconsistency in claims regarding card possession</span>
+                        <span className="ml-1 opacity-40">[NOTE-1]</span>
+                      </div>
+                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(155, 77, 77, 0.05)'}}>
+                        <span className="opacity-70">Merchant records confirm card was used</span>
+                        <span className="ml-1 opacity-40">[CORR-4]</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Supporting Factors */}
+                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
+                    <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wider mb-1" style={{color: colors.success}}>
+                      <CheckCircle className="w-2.5 h-2.5" strokeWidth={1.5} />
+                      Supporting Factors (2)
+                    </div>
+                    <div className="space-y-1.5 text-[9px]">
+                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(61, 124, 94, 0.05)'}}>
+                        <span className="opacity-70">Initially claimed card in possession</span>
+                        <span className="ml-1 opacity-40">[NOTE-1]</span>
+                      </div>
+                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(61, 124, 94, 0.05)'}}>
+                        <span className="opacity-70">No prior relationship with merchant</span>
+                        <span className="ml-1 opacity-40">[INTAKE-Q2]</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       // PHASE 1 - Process detail
       case 'phase-1':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Badge>Steps 1-4</Badge>
               <h2 className="text-4xl max-w-3xl" style={headerStyle}>Case Initiation & Classification</h2>
             </div>
-            
-            <div className="grid grid-cols-2 gap-5">
+
+            <div className="grid grid-cols-2 gap-4">
               {[
                 { n: 1, title: 'Trigger & Capture', color: '#8B7355', items: ['Customer contact (call/chat/online)', 'Bank-detected anomaly or fraud alert', 'Capture: who, what txn, what happened', 'Immediate safeguards (card controls)'] },
                 { n: 2, title: 'Classification', color: '#8B7355', items: ['Posture: Fraud vs Non-fraud vs ATM/EFT', 'Claim type: Drives investigation path', 'Scope: Single txn, series, duplicates', 'Maps to MC reason codes (4837, 4853, 4863...)'] },
                 { n: 3, title: 'Eligibility Check', color: '#5B8A9A', items: ['Can bank still act internally?', 'Can bank still act externally (network)?', 'Merchant resolution attempted? (non-fraud)', 'Transaction posted vs pending?'] },
                 { n: 4, title: 'Investigation Planning', color: '#5B8A9A', items: ['What facts must be established?', 'What supports customer reimbursement?', 'What supports external recovery?', 'Information sources identified'] },
               ].map((step, i) => (
-                <Card key={i} className="space-y-3">
+                <Card key={i} className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <div 
-                      className="w-8 h-8 flex items-center justify-center text-white text-sm font-bold"
+                    <div
+                      className="w-7 h-7 flex items-center justify-center text-white text-xs font-bold"
                       style={{backgroundColor: step.color, borderRadius: '24px'}}
                     >
                       {step.n}
                     </div>
-                    <h3 className="font-semibold">{step.title}</h3>
+                    <h3 className="font-semibold text-sm">{step.title}</h3>
                   </div>
-                  <ul className="text-xs space-y-1 opacity-70 pl-11">
+                  <ul className="text-xs space-y-0.5 opacity-70 pl-10">
                     {step.items.map((item, j) => <li key={j}>• {item}</li>)}
                   </ul>
                 </Card>
               ))}
             </div>
-            
-            <Card className="text-center py-3" style={{backgroundColor: colors.creamSecondary}}>
-              <span className="text-sm opacity-70">Output: Classified claim + Eligibility confirmed + Investigation checklist</span>
+
+            <Card className="text-center py-2" style={{backgroundColor: colors.creamSecondary}}>
+              <span className="text-xs opacity-70">Output: Classified claim + Eligibility confirmed + Investigation checklist</span>
             </Card>
           </SlideCanvas>
         );
@@ -820,9 +1018,9 @@ export default function Presentation() {
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <Card dark className="space-y-2">
-                  <h3 className="font-semibold text-sm">Zero-Tolerance Rule</h3>
-                  <p className="text-xs opacity-50">Any "NO" on compliance = <span className="text-white font-semibold">ZERO points</span> for entire category</p>
-                  <p className="text-[10px] opacity-30 italic">Cannot be offset by operational excellence</p>
+                  <h3 className="font-semibold text-sm">Zero-Tolerance Enforcement</h3>
+                  <p className="text-xs opacity-50">Compliance failures <span className="text-white font-semibold">block case progression</span> until resolved</p>
+                  <p className="text-[10px] opacity-30 italic">No workarounds or manual overrides</p>
                 </Card>
                 <Card className="space-y-2">
                   <h3 className="font-semibold text-sm">Audit-Ready Narrative</h3>
@@ -851,15 +1049,15 @@ export default function Presentation() {
       case 'comparison':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Badge>Comparison</Badge>
               <h2 className="text-5xl max-w-3xl" style={headerStyle}>Before & After Salient</h2>
             </div>
-            
-            <div className="grid grid-cols-2 gap-8">
-              <Card className="space-y-4">
-                <h3 className="text-lg font-semibold opacity-40">Without Salient</h3>
-                <ul className="space-y-2 text-sm opacity-70">
+
+            <div className="grid grid-cols-2 gap-8 flex-1">
+              <Card className="space-y-5 flex flex-col">
+                <h3 className="text-xl font-semibold opacity-30" style={headerStyle}>Without Salient</h3>
+                <ul className="space-y-3 text-sm opacity-60 flex-1">
                   {[
                     'Manual investigation (days to weeks)',
                     'Inconsistent decisions across analysts',
@@ -869,15 +1067,15 @@ export default function Presentation() {
                     'Manual Mastercom case filing'
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3">
-                      <div className="w-1.5 h-1.5 bg-black/20" style={{borderRadius: '50%'}}></div>
+                      <div className="w-1.5 h-1.5 rounded-full opacity-40" style={{backgroundColor: colors.charcoal}}></div>
                       {item}
                     </li>
                   ))}
                 </ul>
               </Card>
-              <Card dark className="space-y-4">
-                <h3 className="text-lg font-semibold">With Salient</h3>
-                <ul className="space-y-2 text-sm opacity-80">
+              <Card dark className="space-y-5 flex flex-col">
+                <h3 className="text-xl font-semibold" style={headerStyle}>With Salient</h3>
+                <ul className="space-y-3 text-sm opacity-70 flex-1">
                   {[
                     'Automated 12-step lifecycle (minutes)',
                     'Consistent, rule-based outcomes',
@@ -887,7 +1085,7 @@ export default function Presentation() {
                     'Direct Mastercom API integration'
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3">
-                      <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 flex-shrink-0" style={{color: colors.accent}} strokeWidth={1.5} />
                       {item}
                     </li>
                   ))}
@@ -901,21 +1099,38 @@ export default function Presentation() {
       case 'value-prop':
         return (
           <SlideCanvas theme="secondary">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <Badge>Value Analysis</Badge>
               <h2 className="text-5xl max-w-3xl" style={headerStyle}>The Business Case for Yendo</h2>
             </div>
-            
-            <div className="space-y-6">
-              <div className="flex gap-12 justify-center">
-                <Metric value="60-80%" label="Cost Reduction" description="↓ per dispute processing" />
-                <Metric value="90%" label="Faster Resolution" description="↓ days to minutes" />
-                <Metric value="100%" label="Audit Coverage" description="↑ exam-ready" />
+
+            <div className="flex-1 flex flex-col justify-center gap-10">
+              <div className="flex gap-16 justify-center">
+                {[
+                  { value: '60-80%', label: 'Cost Reduction', desc: 'Per dispute processing' },
+                  { value: '90%', label: 'Faster Resolution', desc: 'Days to minutes' },
+                  { value: '100%', label: 'Audit Coverage', desc: 'Exam-ready documentation' },
+                ].map((m, i) => (
+                  <div key={i} className="flex flex-col gap-2 pl-8" style={{ borderLeft: `3px solid ${colors.accent}` }}>
+                    <div className="text-6xl tracking-tight" style={{ fontFamily: 'Halant, Georgia, serif', lineHeight: '1', fontWeight: 500 }}>
+                      {m.value}
+                    </div>
+                    <div className="font-bold uppercase tracking-widest text-[10px] opacity-50 mt-1">
+                      {m.label}
+                    </div>
+                    <p className="text-sm opacity-60 max-w-[180px]">
+                      {m.desc}
+                    </p>
+                  </div>
+                ))}
               </div>
-              
-              <Card dark className="text-center py-6">
-                <div className="text-lg font-semibold mb-1">Example: 5,000 disputes/month as Yendo scales</div>
-                <div className="opacity-60">At $30/dispute manual → $8/dispute with Salient = <span className="font-bold text-green-400">$110,000/month saved</span></div>
+
+              <Card dark className="text-center py-8 px-12">
+                <div className="text-xl font-medium mb-2">Example: 5,000 disputes/month as Yendo scales</div>
+                <div className="opacity-50 text-lg">
+                  At $30/dispute manual → $12/dispute with Salient ={' '}
+                  <span className="font-bold" style={{color: colors.accent}}>$90,000/month saved</span>
+                </div>
               </Card>
             </div>
           </SlideCanvas>
@@ -926,10 +1141,10 @@ export default function Presentation() {
         return (
           <SlideCanvas theme="dark">
             <Badge light>Key Takeaways</Badge>
-            
-            <div className="space-y-8">
-              <h2 className="text-5xl" style={headerStyle}>Why Salient for Yendo?</h2>
-              
+
+            <div className="flex-1 flex flex-col justify-center gap-10">
+              <h2 className="text-6xl" style={headerStyle}>Why Salient for Yendo?</h2>
+
               <div className="grid grid-cols-4 gap-4">
                 {[
                   { icon: Zap, title: '12-Step Automation', desc: 'End-to-end dispute lifecycle' },
@@ -937,26 +1152,45 @@ export default function Presentation() {
                   { icon: Shield, title: 'Compliance-First', desc: 'Reg Z, E, CFPB built-in' },
                   { icon: Layers, title: 'Mastercom Direct', desc: 'API case filing & lifecycle' },
                 ].map((item, i) => (
-                  <div 
-                    key={i} 
-                    className="flex items-center gap-4 p-4"
-                    style={{backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)'}}
+                  <div
+                    key={i}
+                    className="flex items-center gap-4 p-5"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.03)',
+                      borderRadius: '24px',
+                      border: '1px solid rgba(255,255,255,0.08)'
+                    }}
                   >
-                    <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '24px'}}>
-                      <item.icon className="w-5 h-5 opacity-60" />
+                    <div
+                      className="w-11 h-11 flex items-center justify-center flex-shrink-0"
+                      style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px'}}
+                    >
+                      <item.icon className="w-5 h-5 opacity-50" strokeWidth={1.5} />
                     </div>
                     <div>
                       <div className="font-semibold text-sm">{item.title}</div>
-                      <div className="text-xs opacity-50">{item.desc}</div>
+                      <div className="text-xs opacity-40">{item.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-            
-            <div className="text-center space-y-3">
-              <div className="text-xl opacity-70" style={headerStyle}>Faster, more accurate decisions at a lower per-dispute cost.</div>
-              <div className="text-sm opacity-40">Let's discuss next steps.</div>
+
+              <div className="text-center space-y-4 mt-4">
+                <div className="text-2xl opacity-60" style={headerStyle}>
+                  Faster, more accurate decisions at a lower per-dispute cost.
+                </div>
+                <div
+                  className="inline-flex items-center gap-2 px-6 py-3 mt-4 text-sm font-medium transition-all duration-200"
+                  style={{
+                    backgroundColor: colors.accent,
+                    color: colors.charcoal,
+                    borderRadius: '24px',
+                  }}
+                >
+                  Let's discuss next steps
+                  <ChevronRight className="w-4 h-4" />
+                </div>
+              </div>
             </div>
           </SlideCanvas>
         );
@@ -970,41 +1204,64 @@ export default function Presentation() {
     <div className="w-full h-screen flex flex-col" style={{backgroundColor: colors.creamSecondary}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&display=swap');
+
+        .slide-container {
+          animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
       `}</style>
       <div className="flex-1 p-4">
-        <div className="w-full h-full shadow-2xl overflow-hidden" style={{borderRadius: '24px'}}>
+        <div
+          key={current}
+          className="slide-container w-full h-full overflow-hidden"
+          style={{
+            borderRadius: '24px',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.03)'
+          }}
+        >
           {renderSlide()}
         </div>
       </div>
       <div className="flex items-center justify-between px-6 py-3" style={{backgroundColor: colors.charcoal}}>
-        <button 
-          onClick={prev} 
-          disabled={current === 0} 
-          className="flex items-center gap-2 px-4 py-2 text-white text-sm disabled:opacity-30 transition-colors"
-          style={{backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '24px'}}
+        <button
+          onClick={prev}
+          disabled={current === 0}
+          className="flex items-center gap-2 px-5 py-2.5 text-white text-sm disabled:opacity-20 transition-all duration-200 hover:bg-white/15"
+          style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px'}}
         >
-          <ChevronLeft className="w-4 h-4" /> Prev
+          <ChevronLeft className="w-4 h-4" strokeWidth={1.5} /> Prev
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {slides.map((_, i) => (
-            <button 
-              key={i} 
-              onClick={() => setCurrent(i)} 
-              className="w-2 h-2 transition-colors"
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className="w-2 h-2 transition-all duration-300 hover:scale-125"
               style={{
-                backgroundColor: i === current ? 'white' : 'rgba(255,255,255,0.3)',
-                borderRadius: '50%'
+                backgroundColor: i === current ? colors.accent : 'rgba(255,255,255,0.25)',
+                borderRadius: '50%',
+                transform: i === current ? 'scale(1.2)' : 'scale(1)'
               }}
             />
           ))}
         </div>
-        <button 
-          onClick={next} 
-          disabled={current === slides.length - 1} 
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium disabled:opacity-30 transition-colors"
+        <button
+          onClick={next}
+          disabled={current === slides.length - 1}
+          className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium disabled:opacity-20 transition-all duration-200 hover:opacity-90"
           style={{backgroundColor: colors.cream, color: colors.charcoal, borderRadius: '24px'}}
         >
-          Next <ChevronRight className="w-4 h-4" />
+          Next <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
         </button>
       </div>
     </div>
