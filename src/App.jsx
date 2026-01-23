@@ -252,61 +252,109 @@ export default function Presentation() {
       case 'problem':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <Badge>The Problem</Badge>
-              <h2 className="text-5xl max-w-3xl" style={headerStyle}>Disputes Today: Manual & Unstructured</h2>
+              <h2 className="text-4xl max-w-3xl" style={headerStyle}>Disputes Today: Manual & Unstructured</h2>
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            {/* Metrics row */}
+            <div className="flex gap-8">
               {[
-                { icon: AlertTriangle, title: 'Manual Investigation', desc: 'Analysts dig through multiple systems, relying on tribal knowledge and inconsistent judgment calls.' },
-                { icon: Users, title: 'Often Outsourced', desc: 'Third-party vendors lack context on vehicle-secured nuances and compliance standards.' },
-                { icon: FileText, title: 'No Audit Trail', desc: 'Decision rationale lives in emails and analyst memory—not exam-ready.' },
+                { value: '5-10 days', label: 'Avg. resolution time' },
+                { value: '$25-40+', label: 'Cost per dispute' },
+                { value: '3-5 systems', label: 'Touched per case' },
+              ].map((m, i) => (
+                <div key={i} className="flex items-baseline gap-2">
+                  <span className="text-2xl font-semibold" style={headerStyle}>{m.value}</span>
+                  <span className="text-xs opacity-40">{m.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Pain points */}
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { icon: AlertTriangle, title: 'Manual Investigation', desc: 'Analysts toggle between systems with tribal knowledge.', consequence: 'Slow & expensive' },
+                { icon: Users, title: 'Often Outsourced', desc: 'BPO implementations are hard to monitor.', consequence: 'Quality drift' },
+                { icon: FileText, title: 'No Audit Trail', desc: 'Decision rationale lives in emails and memory.', consequence: 'Exam exposure' },
+                { icon: Scale, title: 'Inconsistent Outcomes', desc: 'Same facts, different analysts, different results.', consequence: 'Compliance risk' },
               ].map((item, i) => (
-                <Card key={i} className="space-y-4">
-                  <div className="w-12 h-12 flex items-center justify-center" style={{backgroundColor: colors.creamSecondary, borderRadius: '24px'}}>
-                    <item.icon className="w-5 h-5 opacity-50" strokeWidth={1.5} />
+                <Card key={i} className="space-y-2">
+                  <div className="w-10 h-10 flex items-center justify-center" style={{backgroundColor: colors.creamSecondary, borderRadius: '20px'}}>
+                    <item.icon className="w-4 h-4 opacity-50" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-sm opacity-50 leading-relaxed">{item.desc}</p>
+                  <h3 className="text-sm font-semibold">{item.title}</h3>
+                  <p className="text-xs opacity-50 leading-relaxed">{item.desc}</p>
+                  <div className="text-[10px] font-medium pt-1" style={{color: colors.error}}>→ {item.consequence}</div>
                 </Card>
               ))}
             </div>
+
+            {/* Callout */}
+            <Card dark className="text-center py-3">
+              <p className="text-sm">Every manual touchpoint is a <span className="font-semibold">compliance risk</span> and a <span className="font-semibold">cost multiplier</span>.</p>
+            </Card>
           </SlideCanvas>
         );
       
-      // IMPACT SLIDE - Data with metrics
+      // IMPACT SLIDE - CX focused
       case 'impact':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <Badge>The Impact</Badge>
-              <h2 className="text-5xl max-w-3xl" style={headerStyle}>The Real Cost of Status Quo</h2>
+              <h2 className="text-4xl max-w-4xl" style={headerStyle}>Disputes Are a Defining Customer Moment</h2>
+              <p className="text-sm opacity-50 max-w-2xl">When customers dispute a charge, they're stressed and watching closely. How you respond shapes their perception of your brand.</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                { icon: Clock, title: 'Slow Resolution', desc: 'MC allows 45-day cycles—manual burns time', dark: false },
-                { icon: TrendingDown, title: 'Poor CX', desc: 'Underserved customers need fast, fair outcomes', dark: false },
-                { icon: Scale, title: 'Compliance Risk', desc: 'Reg Z, Reg E, CFPB exam exposure', dark: true },
-                { icon: DollarSign, title: 'High Cost', desc: '$25-40+ per dispute with manual processes', dark: false },
-              ].map((item, i) => (
-                <Card key={i} dark={item.dark} className="flex items-center gap-6">
-                  <div
-                    className="w-14 h-14 flex items-center justify-center flex-shrink-0"
-                    style={{
-                      backgroundColor: item.dark ? 'rgba(255,255,255,0.1)' : colors.creamSecondary,
-                      borderRadius: '24px'
-                    }}
-                  >
-                    <item.icon className="w-6 h-6 opacity-50" strokeWidth={1.5} />
+            <div className="grid grid-cols-12 gap-4">
+              {/* Left side - the problem */}
+              <div className="col-span-5 space-y-3">
+                <div className="text-xs font-semibold uppercase tracking-wider opacity-40">When resolution is slow & inconsistent</div>
+                {[
+                  { icon: Clock, title: 'Repeat Contacts', desc: 'Customers call back for status updates, increasing support costs' },
+                  { icon: TrendingDown, title: 'Eroded Trust', desc: 'Each delay signals you don\'t have their back' },
+                  { icon: Users, title: 'Higher Churn', desc: 'Frustrated customers leave, and tell others' },
+                ].map((item, i) => (
+                  <Card key={i} className="flex items-center gap-4 p-4">
+                    <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{backgroundColor: colors.creamSecondary, borderRadius: '16px'}}>
+                      <item.icon className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold">{item.title}</h3>
+                      <p className="text-xs opacity-50">{item.desc}</p>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Right side - compounding cost */}
+              <div className="col-span-7 flex flex-col gap-3">
+                <div className="text-xs font-semibold uppercase tracking-wider opacity-40">The compounding cost</div>
+                <Card dark className="flex-1 flex flex-col justify-center p-6 space-y-4">
+                  <div className="space-y-2">
+                    {[
+                      { label: 'Base handling cost', value: '$25-40', cumulative: '$25-40' },
+                      { label: '+ Repeat contacts & escalations', value: '+$15-25', cumulative: '$40-65' },
+                      { label: '+ Rework from inconsistent decisions', value: '+$20-30', cumulative: '$60-95' },
+                      { label: '+ Lost customer lifetime value', value: '+$200-500', cumulative: '$260-595' },
+                    ].map((row, i) => (
+                      <div key={i} className="flex items-center justify-between text-sm">
+                        <span className="opacity-60">{row.label}</span>
+                        <div className="flex items-center gap-4">
+                          <span className="opacity-40 text-xs">{row.value}</span>
+                          <span className="font-semibold w-20 text-right" style={{color: i === 3 ? colors.accent : 'white'}}>{row.cumulative}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <h3 className="text-xl" style={headerStyle}>{item.title}</h3>
-                    <p className="text-sm opacity-50">{item.desc}</p>
+                  <div className="border-t border-white/10 pt-3 flex justify-between items-center">
+                    <span className="text-xs opacity-40">True cost per mishandled dispute</span>
+                    <span className="text-2xl font-semibold" style={{color: colors.accent}}>$260-595</span>
                   </div>
                 </Card>
-              ))}
+                <p className="text-xs opacity-40 text-center">Fast, consistent resolution isn't just good service. It protects lifetime value.</p>
+              </div>
             </div>
           </SlideCanvas>
         );
@@ -346,8 +394,8 @@ export default function Presentation() {
 
             <div className="grid grid-cols-3 gap-6">
               {[
-                { icon: Shield, title: 'Compliance-first for US lending', desc: 'Built around the realities of US consumer-lending regulation and supervision—CFPB, OCC, FDIC, NCUA, and state regulators.' },
-                { icon: Settings, title: 'Back-office workflow automation', desc: 'Our agents run full workflows end-to-end—from intake through documentation and system updates.' },
+                { icon: Shield, title: 'Compliance-first for US lending', desc: 'Built around the realities of US consumer-lending regulation and supervision. CFPB, OCC, FDIC, NCUA, and state regulators.' },
+                { icon: Settings, title: 'Back-office workflow automation', desc: 'Our agents run full workflows end-to-end, from intake through documentation and system updates.' },
                 { icon: Brain, title: 'Borrower-level memory', desc: 'Every interaction is informed by history: prior calls, promises, hardship notes, disputes, and claims.' },
               ].map((item, i) => (
                 <div
@@ -377,36 +425,138 @@ export default function Presentation() {
       case 'lifecycle-overview':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
               <Badge>Product Overview</Badge>
               <h2 className="text-4xl max-w-3xl" style={headerStyle}>12-Step Dispute Lifecycle</h2>
             </div>
-            
-            <div className="grid grid-cols-6 gap-4">
+
+            {/* Main phases with flow */}
+            <div className="flex items-stretch gap-2">
               {[
-                { phase: 'INITIATION', steps: [{ n: '01', t: 'Trigger & Capture', d: 'Intake from any channel' }, { n: '02', t: 'Classification', d: 'Claim type + posture' }] },
-                { phase: 'ELIGIBILITY', steps: [{ n: '03', t: 'Eligibility Check', d: 'Time windows & prerequisites' }, { n: '04', t: 'Planning', d: 'Investigation objectives' }] },
-                { phase: 'SCREENING', steps: [{ n: '05', t: 'Early Screening', d: 'Auto-deny, approve, or route' }] },
-                { phase: 'INVESTIGATION', steps: [{ n: '06', t: 'Evidence Gathering', d: 'Fact gathering & verification' }, { n: '07', t: 'Evaluation', d: 'Truth & recoverability' }] },
-                { phase: 'DECISION', steps: [{ n: '08', t: 'Decisioning', d: 'Approve/deny with controls' }, { n: '09', t: 'Execution', d: 'Credits, recovery, notices' }] },
-                { phase: 'CLOSEOUT', steps: [{ n: '10', t: 'Lifecycle Mgmt', d: 'Responses & escalations' }, { n: '11', t: 'Documentation', d: 'Audit-ready narrative' }, { n: '12', t: 'Closeout', d: 'Final status & learnings' }], dark: true },
-              ].map((group, i) => (
-                <Card key={i} dark={group.dark} className="space-y-3">
-                  <div className="text-[10px] font-bold tracking-widest opacity-50">{group.phase}</div>
-                  <div className="space-y-3">
-                    {group.steps.map((step, j) => (
-                      <div key={j} className="flex items-start gap-2">
-                        <span className="text-sm opacity-30" style={headerStyle}>{step.n}</span>
-                        <div>
-                          <div className="text-xs font-semibold">{step.t}</div>
-                          <div className="text-[10px] opacity-50">{step.d}</div>
-                        </div>
+                {
+                  phase: 'INTAKE',
+                  color: '#8B7355',
+                  time: '< 1 min',
+                  steps: [
+                    { n: '01', t: 'Trigger & Capture', auto: true },
+                    { n: '02', t: 'Classification', auto: true },
+                    { n: '03', t: 'Eligibility Check', auto: true },
+                    { n: '04', t: 'Planning', auto: true },
+                  ],
+                  output: 'Classified claim'
+                },
+                {
+                  phase: 'INVESTIGATION',
+                  color: '#5B8A9A',
+                  time: '1-5 min',
+                  steps: [
+                    { n: '05', t: 'Early Screening', auto: true },
+                    { n: '06', t: 'Evidence Gathering', auto: true },
+                    { n: '07', t: 'Evaluation', auto: false },
+                  ],
+                  output: 'Evidence package'
+                },
+                {
+                  phase: 'RESOLUTION',
+                  color: '#2E7D32',
+                  time: '< 1 min',
+                  steps: [
+                    { n: '08', t: 'Decisioning', auto: false },
+                    { n: '09', t: 'Execution', auto: true },
+                  ],
+                  output: 'Decision + credits'
+                },
+                {
+                  phase: 'CLOSEOUT',
+                  color: colors.charcoal,
+                  time: 'Ongoing',
+                  steps: [
+                    { n: '10', t: 'Lifecycle Mgmt', auto: true },
+                    { n: '11', t: 'Documentation', auto: true },
+                    { n: '12', t: 'Closeout', auto: true },
+                  ],
+                  output: 'Audit trail'
+                },
+              ].map((group, i, arr) => (
+                <div key={i} className="flex items-stretch flex-1">
+                  <div
+                    className="flex-1 p-4 flex flex-col"
+                    style={{
+                      backgroundColor: i === 3 ? colors.charcoal : 'white',
+                      color: i === 3 ? 'white' : colors.charcoal,
+                      borderRadius: '16px',
+                      border: i === 3 ? 'none' : '1px solid rgba(0,0,0,0.06)'
+                    }}
+                  >
+                    {/* Phase header */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div
+                        className="text-[9px] font-bold tracking-widest px-2 py-1 rounded-full"
+                        style={{ backgroundColor: group.color, color: 'white' }}
+                      >
+                        {group.phase}
                       </div>
-                    ))}
+                      <div className="text-[10px] opacity-50">{group.time}</div>
+                    </div>
+
+                    {/* Steps */}
+                    <div className="space-y-2 flex-1">
+                      {group.steps.map((step, j) => (
+                        <div key={j} className="flex items-center gap-2">
+                          <span className="text-[10px] opacity-30 w-4">{step.n}</span>
+                          <span className="text-[11px] flex-1">{step.t}</span>
+                          <span
+                            className="text-[8px] px-1.5 py-0.5 rounded-full"
+                            style={{
+                              backgroundColor: step.auto
+                                ? (i === 3 ? 'rgba(255,255,255,0.15)' : 'rgba(46,125,50,0.1)')
+                                : (i === 3 ? 'rgba(255,255,255,0.15)' : 'rgba(201,169,98,0.2)'),
+                              color: step.auto
+                                ? (i === 3 ? 'rgba(255,255,255,0.7)' : '#2E7D32')
+                                : (i === 3 ? 'rgba(255,255,255,0.7)' : '#96722E')
+                            }}
+                          >
+                            {step.auto ? 'Auto' : 'Review'}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Output */}
+                    <div
+                      className="mt-3 pt-2 text-[10px] text-center border-t"
+                      style={{ borderColor: i === 3 ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)' }}
+                    >
+                      <span className="opacity-40">→</span> <span className="font-medium">{group.output}</span>
+                    </div>
                   </div>
-                </Card>
+
+                  {/* Arrow between phases */}
+                  {i < arr.length - 1 && (
+                    <div className="flex items-center px-1">
+                      <ChevronRight className="w-4 h-4 opacity-20" />
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
+
+            {/* Summary bar */}
+            <Card dark className="flex items-center justify-between py-3 px-6">
+              <div className="flex items-center gap-6">
+                {[
+                  { label: 'Total time', value: 'Minutes, not days' },
+                  { label: 'Automation rate', value: '10 of 12 steps' },
+                  { label: 'Audit coverage', value: '100%' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <span className="text-xs opacity-40">{item.label}:</span>
+                    <span className="text-sm font-semibold">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="text-xs opacity-50">Human review only where judgment matters</div>
+            </Card>
           </SlideCanvas>
         );
 
@@ -771,8 +921,8 @@ export default function Presentation() {
               <div className="col-span-5 space-y-4">
                 {[
                   { title: 'Transparent Logic', desc: 'Every decision follows explicit rules your compliance team can review and approve' },
-                  { title: 'Version Control', desc: 'Git-style versioning—know exactly what logic applied to any historical dispute' },
-                  { title: 'Automated Testing', desc: 'Regression tests run before any rule goes live—no surprises in production' },
+                  { title: 'Version Control', desc: 'Git-style versioning. Know exactly what logic applied to any historical dispute' },
+                  { title: 'Automated Testing', desc: 'Regression tests run before any rule goes live. No surprises in production' },
                 ].map((item, i) => (
                   <Card key={i} className="space-y-1">
                     <h4 className="font-semibold text-sm">{item.title}</h4>
@@ -983,7 +1133,7 @@ export default function Presentation() {
             <div className="space-y-4">
               <div className="grid grid-cols-4 gap-3">
                 {[
-                  { title: 'Audit Risk', desc: 'Heavily scrutinized—every case must be traceable' },
+                  { title: 'Audit Risk', desc: 'Heavily scrutinized. Every case must be traceable' },
                   { title: 'Regulatory', desc: 'Direct customer impact with CFPB implications' },
                   { title: 'Visibility', desc: 'Limited insight without documentation' },
                   { title: 'Volume', desc: 'Small errors affect many customers' },
