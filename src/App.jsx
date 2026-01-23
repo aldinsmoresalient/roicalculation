@@ -435,15 +435,15 @@ export default function Presentation() {
                     <User className="w-3 h-3" strokeWidth={1.5} />
                     Cardholder
                   </div>
-                  <div className="font-semibold text-xs">BRENDAN PETERSON</div>
+                  <div className="font-semibold text-xs">MARIA THOMPSON</div>
                   <div className="text-[10px] opacity-50 space-y-0 mt-1">
-                    <div className="flex items-center gap-1.5"><Mail className="w-2.5 h-2.5" strokeWidth={1.5} /> ajpu99@gmail.com</div>
-                    <div className="flex items-center gap-1.5"><Phone className="w-2.5 h-2.5" strokeWidth={1.5} /> (352) 215-4731</div>
-                    <div className="flex items-center gap-1.5"><MapPin className="w-2.5 h-2.5" strokeWidth={1.5} /> Micanopy, FL 32667</div>
+                    <div className="flex items-center gap-1.5"><Mail className="w-2.5 h-2.5" strokeWidth={1.5} /> m.thompson@email.com</div>
+                    <div className="flex items-center gap-1.5"><Phone className="w-2.5 h-2.5" strokeWidth={1.5} /> (555) 867-5309</div>
+                    <div className="flex items-center gap-1.5"><MapPin className="w-2.5 h-2.5" strokeWidth={1.5} /> Austin, TX 78701</div>
                   </div>
                   <div className="mt-2 pt-2 border-t border-black/5 flex justify-between text-[9px]">
-                    <div><span className="opacity-40">Account</span> <span className="font-mono font-medium">60823895</span></div>
-                    <div><span className="opacity-40">Card</span> <span className="font-mono">••••7439</span></div>
+                    <div><span className="opacity-40">Account</span> <span className="font-mono font-medium">48291056</span></div>
+                    <div><span className="opacity-40">Card</span> <span className="font-mono">••••4521</span></div>
                   </div>
                 </div>
 
@@ -453,9 +453,9 @@ export default function Presentation() {
                     <AlertTriangle className="w-2.5 h-2.5" strokeWidth={1.5} />
                     Disputed Transaction
                   </div>
-                  <div className="text-[10px] font-medium">CLIP MX+ROSA Y BONITA SOLIDARIDAD MX</div>
-                  <div className="text-[9px] opacity-40">Sep 1, 2025 • MCC: 7230</div>
-                  <div className="text-lg font-semibold mt-1" style={{fontFamily: 'Halant, Georgia, serif'}}>$1,029.55</div>
+                  <div className="text-[10px] font-medium">LUXE ELECTRONICS ONLINE</div>
+                  <div className="text-[9px] opacity-40">Sep 1, 2025 • MCC: 5732</div>
+                  <div className="text-lg font-semibold mt-1" style={{fontFamily: 'Halant, Georgia, serif'}}>$847.99</div>
                 </div>
 
                 {/* Documentation */}
@@ -471,10 +471,10 @@ export default function Presentation() {
                   </div>
                   <div className="space-y-1">
                     {[
-                      { name: 'DF#440330927', date: 'Oct 14, 2025', icon: File },
-                      { name: 'Read New Corr.', date: 'Sep 23, 2025', icon: MessageSquare },
-                      { name: 'Credit One Bank: Message...', date: 'Sep 16, 2025', icon: Mail },
-                      { name: 'Denial Narrative', date: 'Sep 16, 2025', icon: FileText },
+                      { name: 'Dispute Case File', date: 'Oct 14, 2025', icon: File },
+                      { name: 'Cardholder Statement', date: 'Sep 23, 2025', icon: MessageSquare },
+                      { name: 'Merchant Response', date: 'Sep 16, 2025', icon: Mail },
+                      { name: 'Decision Narrative', date: 'Sep 16, 2025', icon: FileText },
                     ].map((doc, i) => (
                       <div key={i} className="flex items-center gap-1.5 p-1.5 rounded-lg hover:bg-black/[0.02] text-[9px]">
                         <doc.icon className="w-2.5 h-2.5 opacity-40" strokeWidth={1.5} />
@@ -503,7 +503,7 @@ export default function Presentation() {
                     <span className="text-[9px] opacity-40">Actual Outcome: Resolved-Denied ✓</span>
                   </div>
                   <p className="text-[10px] opacity-60 leading-relaxed">
-                    Brendan Peterson's claim of fraud is undermined by inconsistencies in his statements regarding card possession and confirmation from the merchant that the card was used for the transaction.
+                    The claim of fraud is undermined by inconsistencies in cardholder statements regarding card possession and confirmation from the merchant that the card was used for the transaction.
                   </p>
                 </div>
 
@@ -513,7 +513,7 @@ export default function Presentation() {
                   <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
                     <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">What the Customer Claims</div>
                     <p className="text-[10px] opacity-70 leading-relaxed">
-                      Brendan Peterson claims that a fraudulent transaction of $1,029.55 occurred on his card, which he asserts he had in his possession at all times.
+                      Cardholder claims that a fraudulent transaction of $847.99 occurred on her card, which she asserts she had in her possession at all times.
                     </p>
                     <div className="mt-2 pt-2 border-t border-black/5">
                       <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">Timeline</div>
@@ -529,7 +529,7 @@ export default function Presentation() {
                   <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
                     <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">Our Assessment</div>
                     <p className="text-[10px] opacity-70 leading-relaxed">
-                      The evidence suggests inconsistencies in Brendan's claims. Initial statements confirm he had the card, but later communications indicate uncertainty.
+                      The evidence suggests inconsistencies in the cardholder's claims. Initial statements confirm card possession, but later communications indicate uncertainty.
                     </p>
                     <div className="mt-2 flex items-center gap-2">
                       <span className="text-[9px] opacity-40">Credibility:</span>
