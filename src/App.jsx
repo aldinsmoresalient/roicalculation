@@ -1432,8 +1432,14 @@ export default function Presentation() {
           {renderSlide()}
         </div>
       </div>
-      {/* Navigation bar - responsive layout */}
-      <div className="flex flex-col gap-2 px-4 py-3" style={{backgroundColor: colors.charcoal}}>
+      {/* Navigation bar - responsive layout with iOS safe area support */}
+      <div
+        className="flex flex-col gap-2 px-4 pt-3"
+        style={{
+          backgroundColor: colors.charcoal,
+          paddingBottom: 'max(12px, env(safe-area-inset-bottom, 12px))',
+        }}
+      >
         {/* Prev/Next buttons - full width on mobile for easy tapping */}
         <div className="flex items-center justify-center gap-3">
           <button
