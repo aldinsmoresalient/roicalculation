@@ -1432,16 +1432,36 @@ export default function Presentation() {
           {renderSlide()}
         </div>
       </div>
-      <div className="flex items-center justify-between px-6 py-3" style={{backgroundColor: colors.charcoal}}>
-        <button
-          onClick={prev}
-          disabled={current === 0}
-          className="flex items-center gap-2 px-5 py-2.5 text-white text-sm disabled:opacity-20 transition-all duration-200 hover:bg-white/15"
-          style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px'}}
-        >
-          <ChevronLeft className="w-4 h-4" strokeWidth={1.5} /> Prev
-        </button>
-        <div className="flex items-center gap-1.5">
+      {/* Navigation bar - responsive layout */}
+      <div className="flex flex-col gap-2 px-4 py-3" style={{backgroundColor: colors.charcoal}}>
+        {/* Prev/Next buttons - full width on mobile for easy tapping */}
+        <div className="flex items-center justify-center gap-3">
+          <button
+            onClick={prev}
+            disabled={current === 0}
+            className="flex-1 max-w-[140px] flex items-center justify-center gap-2 px-5 py-3 text-white text-sm disabled:opacity-20 transition-all duration-200 hover:bg-white/15 active:scale-95"
+            style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px', minHeight: '44px'}}
+          >
+            <ChevronLeft className="w-4 h-4" strokeWidth={1.5} /> Prev
+          </button>
+
+          {/* Slide counter - compact display */}
+          <div className="text-white/60 text-sm font-medium min-w-[60px] text-center">
+            {current + 1} / {slides.length}
+          </div>
+
+          <button
+            onClick={next}
+            disabled={current === slides.length - 1}
+            className="flex-1 max-w-[140px] flex items-center justify-center gap-2 px-5 py-3 text-sm font-medium disabled:opacity-20 transition-all duration-200 hover:opacity-90 active:scale-95"
+            style={{backgroundColor: colors.cream, color: colors.charcoal, borderRadius: '24px', minHeight: '44px'}}
+          >
+            Next <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
+          </button>
+        </div>
+
+        {/* Dot indicators - hidden on very small screens, visible on tablet+ */}
+        <div className="hidden sm:flex items-center justify-center gap-1.5">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -1455,14 +1475,6 @@ export default function Presentation() {
             />
           ))}
         </div>
-        <button
-          onClick={next}
-          disabled={current === slides.length - 1}
-          className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium disabled:opacity-20 transition-all duration-200 hover:opacity-90"
-          style={{backgroundColor: colors.cream, color: colors.charcoal, borderRadius: '24px'}}
-        >
-          Next <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
-        </button>
       </div>
     </div>
   );
