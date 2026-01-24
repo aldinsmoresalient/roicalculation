@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, Car, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, CircleDot, File, MessageSquare } from 'lucide-react';
 
 // Salient Brand Colors
@@ -142,6 +142,37 @@ export default function Presentation() {
     window.addEventListener('resize', updateScale);
     return () => window.removeEventListener('resize', updateScale);
   }, []);
+
+  // Touch/swipe navigation
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX.current;
+    const deltaY = touchEndY - touchStartY.current;
+
+    // Only trigger if horizontal swipe is dominant and exceeds threshold
+    const minSwipeDistance = 50;
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+      if (deltaX > 0) {
+        prev(); // Swipe right = previous slide
+      } else {
+        next(); // Swipe left = next slide
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
 
   const headerStyle = { fontFamily: 'Halant, Georgia, serif', lineHeight: '0.9', letterSpacing: '-0.02em' };
 
@@ -1414,8 +1445,12 @@ export default function Presentation() {
           }
         }
       `}</style>
-      {/* Slide area - centers the scaled slide */}
-      <div className="flex-1 flex items-center justify-center overflow-hidden">
+      {/* Slide area - centers the scaled slide, handles swipe gestures */}
+      <div
+        className="flex-1 flex items-center justify-center overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           key={current}
           className="slide-container overflow-hidden"
