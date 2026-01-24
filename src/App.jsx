@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, Car, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, CircleDot, File, MessageSquare } from 'lucide-react';
 
 // Salient Brand Colors
@@ -112,10 +112,36 @@ const slides = [
   { id: 'takeaways', type: 'takeaways' },
 ];
 
+// Fixed slide dimensions (16:9 aspect ratio)
+const SLIDE_WIDTH = 1200;
+const SLIDE_HEIGHT = 675;
+const NAV_HEIGHT = 56;
+
 export default function Presentation() {
   const [current, setCurrent] = useState(0);
+  const [scale, setScale] = useState(1);
+
   const prev = () => setCurrent(c => Math.max(0, c - 1));
   const next = () => setCurrent(c => Math.min(slides.length - 1, c + 1));
+
+  // Calculate scale to fit viewport while maintaining aspect ratio
+  useEffect(() => {
+    const updateScale = () => {
+      const padding = 32; // 16px on each side
+      const availableWidth = window.innerWidth - padding;
+      const availableHeight = window.innerHeight - NAV_HEIGHT - padding;
+
+      const scaleX = availableWidth / SLIDE_WIDTH;
+      const scaleY = availableHeight / SLIDE_HEIGHT;
+
+      // Use the smaller scale to ensure slide fits both dimensions
+      setScale(Math.min(scaleX, scaleY, 1)); // Cap at 1 to prevent scaling up
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   const headerStyle = { fontFamily: 'Halant, Georgia, serif', lineHeight: '0.9', letterSpacing: '-0.02em' };
 
@@ -1371,7 +1397,7 @@ export default function Presentation() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col" style={{backgroundColor: colors.creamSecondary}}>
+    <div className="w-full h-screen flex flex-col overflow-hidden" style={{backgroundColor: colors.creamSecondary}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Halant:wght@300;400;500;600;700&display=swap');
 
@@ -1382,21 +1408,25 @@ export default function Presentation() {
         @keyframes slideIn {
           from {
             opacity: 0;
-            transform: translateY(8px);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
           }
         }
       `}</style>
-      <div className="flex-1 p-4">
+      {/* Slide area - centers the scaled slide */}
+      <div className="flex-1 flex items-center justify-center overflow-hidden">
         <div
           key={current}
-          className="slide-container w-full h-full overflow-hidden"
+          className="slide-container overflow-hidden"
           style={{
+            width: SLIDE_WIDTH,
+            height: SLIDE_HEIGHT,
+            transform: `scale(${scale})`,
+            transformOrigin: 'center center',
             borderRadius: '24px',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.03)'
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.03)',
+            flexShrink: 0,
           }}
         >
           {renderSlide()}
