@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, Car, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, CircleDot, File, MessageSquare } from 'lucide-react';
+import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, File, MessageSquare, TrendingUp, Target, Upload, Filter, Download, Globe, BarChart3, ArrowLeft, ThumbsUp, ThumbsDown, RefreshCw, ChevronDown, Store, Wifi } from 'lucide-react';
 
 // Salient Brand Colors
 const colors = {
@@ -91,14 +91,16 @@ const Card = ({ children, dark = false, className = '' }) => (
 
 const slides = [
   { id: 'title', type: 'title' },
-  { id: 'agenda', type: 'agenda' },
-  { id: 'yendo-context', type: 'yendo-context' },
+  { id: 'ideal-partner', type: 'ideal-partner' },
   { id: 'problem', type: 'problem' },
   { id: 'impact', type: 'impact' },
   { id: 'solution-intro', type: 'solution-intro' },
   { id: 'why-salient', type: 'why-salient' },
   { id: 'lifecycle-overview', type: 'lifecycle-overview' },
+  { id: 'product-dashboard', type: 'product-dashboard' },
   { id: 'claims-ui', type: 'claims-ui' },
+  { id: 'product-reporting', type: 'product-reporting' },
+  { id: 'product-trends', type: 'product-trends' },
   { id: 'phase-1', type: 'phase-1' },
   { id: 'phase-2', type: 'phase-2' },
   { id: 'phase-3', type: 'phase-3' },
@@ -108,7 +110,7 @@ const slides = [
   { id: 'evidence-packages', type: 'evidence-packages' },
   { id: 'compliance', type: 'compliance' },
   { id: 'comparison', type: 'comparison' },
-  { id: 'value-prop', type: 'value-prop' },
+  { id: 'business-case', type: 'business-case' },
   { id: 'takeaways', type: 'takeaways' },
 ];
 
@@ -198,33 +200,28 @@ export default function Presentation() {
                 AI-Powered Dispute Resolution
               </h1>
               <p className="text-lg opacity-50 max-w-2xl mt-2">
-                Built for Yendo's Vehicle-Secured Credit Card
+                End-to-End Automation for Consumer Lenders
               </p>
               <div className="flex items-center gap-4 mt-8">
-                <div
-                  className="flex items-center gap-3 px-5 py-2.5 text-sm transition-all duration-200"
-                  style={{
-                    backgroundColor: 'white',
-                    borderRadius: '24px',
-                    border: '1px solid rgba(0,0,0,0.06)',
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.04)'
-                  }}
-                >
-                  <CreditCard className="w-4 h-4 opacity-50" strokeWidth={1.5} />
-                  <span className="opacity-70">Mastercard Network</span>
-                </div>
-                <div
-                  className="flex items-center gap-3 px-5 py-2.5 text-sm transition-all duration-200"
-                  style={{
-                    backgroundColor: 'white',
-                    borderRadius: '24px',
-                    border: '1px solid rgba(0,0,0,0.06)',
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.04)'
-                  }}
-                >
-                  <Car className="w-4 h-4 opacity-50" strokeWidth={1.5} />
-                  <span className="opacity-70">Vehicle-Secured Lending</span>
-                </div>
+                {[
+                  { icon: CreditCard, label: 'Credit Cards' },
+                  { icon: DollarSign, label: 'Consumer Loans' },
+                  { icon: Shield, label: 'Compliance-First' },
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 px-5 py-2.5 text-sm transition-all duration-200"
+                    style={{
+                      backgroundColor: 'white',
+                      borderRadius: '24px',
+                      border: '1px solid rgba(0,0,0,0.06)',
+                      boxShadow: '0 2px 12px rgba(0,0,0,0.04)'
+                    }}
+                  >
+                    <item.icon className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                    <span className="opacity-70">{item.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </SlideCanvas>
@@ -240,7 +237,7 @@ export default function Presentation() {
             </div>
             <div className="grid grid-cols-2 gap-6">
               {[
-                { num: '01', title: 'The Yendo Opportunity', desc: 'Why data-first companies unlock better outcomes' },
+                { num: '01', title: 'The Opportunity', desc: 'Why data-first lenders unlock better outcomes' },
                 { num: '02', title: 'Current Pain Points', desc: 'Manual processes, compliance risk, cost' },
                 { num: '03', title: 'Salient Solution', desc: '12-step automated dispute lifecycle' },
                 { num: '04', title: 'Value & ROI', desc: 'Faster resolution, lower cost, exam-ready' },
@@ -257,48 +254,122 @@ export default function Presentation() {
           </SlideCanvas>
         );
       
-      // YENDO CONTEXT - Data slide with metrics
-      case 'yendo-context':
+      // IDEAL PARTNER - Data slide with characteristics
+      case 'ideal-partner':
         return (
           <SlideCanvas theme="secondary">
-            <div className="flex flex-col gap-6">
-              <Badge>Why Yendo</Badge>
-              <h2 className="text-4xl max-w-3xl" style={headerStyle}>The Ideal Partner for AI-Powered Disputes</h2>
+            <div className="flex flex-col gap-4">
+              <Badge>Ideal Partner</Badge>
+              <h2 className="text-4xl max-w-3xl" style={headerStyle}>The Right Fit for AI-Powered Disputes</h2>
             </div>
-            
-            <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-5 space-y-4">
-                <Card className="space-y-3">
-                  <h3 className="font-bold text-sm opacity-50">THE USUAL BOTTLENECK</h3>
-                  <p className="text-xs opacity-60">Most dispute automation projects stall because legacy lenders have:</p>
-                  <ul className="text-xs space-y-1.5 opacity-80">
-                    {['Fragmented data across siloed systems', '12-18 month integration timelines', 'Risk-averse IT governance', 'Manual processes embedded in culture'].map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="opacity-40">✗</span> {item}
+
+            <div className="grid grid-cols-12 gap-6 flex-1">
+              {/* Left side - Bottleneck vs Great Partner */}
+              <div className="col-span-5 flex flex-col gap-4">
+                <Card className="space-y-3 flex-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 flex items-center justify-center rounded-full" style={{ backgroundColor: 'rgba(155,77,77,0.1)' }}>
+                      <XCircle className="w-3 h-3" style={{ color: colors.error }} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-bold text-sm opacity-70">THE USUAL BOTTLENECK</h3>
+                  </div>
+                  <p className="text-xs opacity-50">Most dispute automation projects stall because legacy lenders have:</p>
+                  <ul className="text-xs space-y-2 opacity-80">
+                    {[
+                      { text: 'Fragmented data across siloed systems', sub: 'No single source of truth' },
+                      { text: '12-18 month integration timelines', sub: 'Slow procurement cycles' },
+                      { text: 'Risk-averse IT governance', sub: 'Change aversion' },
+                      { text: 'Manual processes embedded in culture', sub: 'Tribal knowledge dependency' },
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 p-2 rounded-lg" style={{ backgroundColor: 'rgba(155,77,77,0.05)' }}>
+                        <XCircle className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: colors.error, opacity: 0.5 }} strokeWidth={1.5} />
+                        <div>
+                          <div>{item.text}</div>
+                          <div className="text-[10px] opacity-50">{item.sub}</div>
+                        </div>
                       </li>
                     ))}
                   </ul>
                 </Card>
-                <Card dark className="space-y-3">
-                  <h3 className="font-bold text-sm opacity-50">WHY YENDO IS DIFFERENT</h3>
-                  <ul className="text-xs space-y-1.5 opacity-80">
-                    {['Unified data layer from day one', 'API-first architecture', 'AI already in production (underwriting)', 'Engineering-led decision making', 'Speed as a competitive advantage'].map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-green-400">✓</span> {item}
+                <Card dark className="space-y-3 flex-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 flex items-center justify-center rounded-full" style={{ backgroundColor: colors.accentMuted }}>
+                      <CheckCircle className="w-3 h-3" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-bold text-sm opacity-70">WHAT MAKES A GREAT PARTNER</h3>
+                  </div>
+                  <ul className="text-xs space-y-2 opacity-80">
+                    {[
+                      { text: 'Unified or accessible data layer', sub: 'Clean integration points' },
+                      { text: 'API-first architecture', sub: 'Modern infrastructure' },
+                      { text: 'Openness to AI-driven automation', sub: 'Innovation mindset' },
+                      { text: 'Engineering-led decision making', sub: 'Technical partnership' },
+                      { text: 'Speed as a competitive advantage', sub: 'Move fast, iterate' },
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 p-2 rounded-lg" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                        <CheckCircle className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: colors.accent }} strokeWidth={1.5} />
+                        <div>
+                          <div>{item.text}</div>
+                          <div className="text-[10px] opacity-40">{item.sub}</div>
+                        </div>
                       </li>
                     ))}
                   </ul>
                 </Card>
               </div>
-              
-              <div className="col-span-7 flex flex-col justify-between">
-                <div className="flex gap-8 justify-end">
-                  <Metric value="95%" label="Origination Cost Reduction" />
-                  <Metric value="10 min" label="Approval Time" />
-                  <Metric value="$50M" label="Series B (Oct 2025)" />
+
+              {/* Right side - Metrics and value */}
+              <div className="col-span-7 flex flex-col gap-4">
+                {/* Metrics row */}
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { value: '60%', label: 'Cost Reduction', icon: TrendingDown, desc: '$30 → $12 per dispute' },
+                    { value: '90%+', label: 'Faster Resolution', icon: Zap, desc: 'Days reduced to minutes' },
+                    { value: '100%', label: 'Audit Coverage', icon: Shield, desc: 'Every decision documented' },
+                  ].map((m, i) => (
+                    <Card key={i} className="text-center p-4">
+                      <div className="w-10 h-10 mx-auto mb-2 flex items-center justify-center" style={{ backgroundColor: colors.accentMuted, borderRadius: '20px' }}>
+                        <m.icon className="w-4 h-4" style={{ color: colors.accent }} strokeWidth={1.5} />
+                      </div>
+                      <div className="text-3xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: colors.accent }}>{m.value}</div>
+                      <div className="text-[10px] uppercase tracking-wider opacity-50 mt-1">{m.label}</div>
+                      <div className="text-[10px] opacity-40 mt-1">{m.desc}</div>
+                    </Card>
+                  ))}
                 </div>
-                <Card dark className="text-center py-4">
-                  <p className="text-sm">When we partner with data & tech-first companies like Yendo, we ship in <span className="font-semibold">weeks, not years</span>.</p>
+
+                {/* Timeline comparison */}
+                <Card className="flex-1 p-5">
+                  <h4 className="font-semibold text-sm mb-4">Implementation Timeline</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex items-center justify-between text-xs mb-1">
+                        <span className="opacity-60">Legacy Lender (typical)</span>
+                        <span className="font-semibold" style={{ color: colors.error }}>12-18 months</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden" style={{ backgroundColor: colors.creamSecondary }}>
+                        <div className="h-full rounded-full" style={{ width: '100%', backgroundColor: `${colors.error}40` }}></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between text-xs mb-1">
+                        <span className="opacity-60">Data-first Partner</span>
+                        <span className="font-semibold" style={{ color: colors.success }}>4-8 weeks</span>
+                      </div>
+                      <div className="h-3 rounded-full overflow-hidden" style={{ backgroundColor: colors.creamSecondary }}>
+                        <div className="h-full rounded-full" style={{ width: '15%', backgroundColor: colors.success }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-black/5 flex items-center gap-3">
+                    <Zap className="w-4 h-4" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    <span className="text-sm"><span className="font-semibold">10x faster</span> time to value with the right partner</span>
+                  </div>
+                </Card>
+
+                {/* Bottom callout */}
+                <Card dark className="text-center py-3">
+                  <p className="text-sm">When we partner with data & tech-first lenders, we ship in <span className="font-semibold" style={{ color: colors.accent }}>weeks, not years</span>.</p>
                 </Card>
               </div>
             </div>
@@ -309,23 +380,28 @@ export default function Presentation() {
       case 'problem':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-3">
-              <Badge>The Problem</Badge>
-              <h2 className="text-4xl max-w-3xl" style={headerStyle}>Disputes Today: Manual & Unstructured</h2>
-            </div>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-3">
+                <Badge>The Problem</Badge>
+                <h2 className="text-4xl max-w-xl" style={headerStyle}>Disputes Today: Manual & Unstructured</h2>
+              </div>
 
-            {/* Metrics row */}
-            <div className="flex gap-8">
-              {[
-                { value: '5-10 days', label: 'Avg. resolution time' },
-                { value: '$25-40+', label: 'Cost per dispute' },
-                { value: '3-5 systems', label: 'Touched per case' },
-              ].map((m, i) => (
-                <div key={i} className="flex items-baseline gap-2">
-                  <span className="text-2xl font-semibold" style={headerStyle}>{m.value}</span>
-                  <span className="text-xs opacity-40">{m.label}</span>
-                </div>
-              ))}
+              {/* Metrics row - now positioned to the right */}
+              <div className="flex gap-6">
+                {[
+                  { value: '5-10', unit: 'days', label: 'Avg. resolution' },
+                  { value: '$25-40+', unit: '', label: 'Per dispute' },
+                  { value: '3-5', unit: 'systems', label: 'Per case' },
+                ].map((m, i) => (
+                  <div key={i} className="text-right pl-4" style={{ borderLeft: `2px solid ${colors.error}20` }}>
+                    <div className="flex items-baseline gap-1 justify-end">
+                      <span className="text-2xl font-semibold" style={{ ...headerStyle, color: colors.error }}>{m.value}</span>
+                      {m.unit && <span className="text-sm opacity-40">{m.unit}</span>}
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wider opacity-40">{m.label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Pain points */}
@@ -336,20 +412,26 @@ export default function Presentation() {
                 { icon: FileText, title: 'No Audit Trail', desc: 'Decision rationale lives in emails and memory.', consequence: 'Exam exposure' },
                 { icon: Scale, title: 'Inconsistent Outcomes', desc: 'Same facts, different analysts, different results.', consequence: 'Compliance risk' },
               ].map((item, i) => (
-                <Card key={i} className="space-y-2">
-                  <div className="w-10 h-10 flex items-center justify-center" style={{backgroundColor: colors.creamSecondary, borderRadius: '20px'}}>
-                    <item.icon className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                <Card key={i} className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 flex items-center justify-center" style={{ backgroundColor: 'rgba(155,77,77,0.08)', borderRadius: '16px' }}>
+                      <item.icon className="w-4 h-4" style={{ color: colors.error, opacity: 0.7 }} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="text-sm font-semibold">{item.title}</h3>
                   </div>
-                  <h3 className="text-sm font-semibold">{item.title}</h3>
                   <p className="text-xs opacity-50 leading-relaxed">{item.desc}</p>
-                  <div className="text-[10px] font-medium pt-1" style={{color: colors.error}}>→ {item.consequence}</div>
+                  <div className="flex items-center gap-2 pt-2 border-t border-black/5">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: colors.error }}></div>
+                    <span className="text-[10px] font-medium" style={{ color: colors.error }}>{item.consequence}</span>
+                  </div>
                 </Card>
               ))}
             </div>
 
             {/* Callout */}
-            <Card dark className="text-center py-3">
-              <p className="text-sm">Every manual touchpoint is a <span className="font-semibold">compliance risk</span> and a <span className="font-semibold">cost multiplier</span>.</p>
+            <Card dark className="flex items-center justify-center gap-3 py-3">
+              <AlertTriangle className="w-4 h-4" style={{ color: colors.accent }} strokeWidth={1.5} />
+              <p className="text-sm">Every manual touchpoint is a <span className="font-semibold" style={{ color: colors.accent }}>compliance risk</span> and a <span className="font-semibold" style={{ color: colors.accent }}>cost multiplier</span>.</p>
             </Card>
           </SlideCanvas>
         );
@@ -423,7 +505,12 @@ export default function Presentation() {
             <div className="absolute top-16 left-16">
               <Badge light>The Solution</Badge>
             </div>
-            <div className="flex flex-col items-center text-center gap-8">
+            {/* Subtle decorative element */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.03]"
+              style={{ background: `radial-gradient(circle, ${colors.accent} 0%, transparent 70%)` }}
+            />
+            <div className="flex flex-col items-center text-center gap-8 relative z-10">
               <span
                 className="text-lg font-medium tracking-[0.4em] opacity-60"
                 style={{ fontFamily: 'Halant, Georgia, serif' }}
@@ -436,6 +523,22 @@ export default function Presentation() {
               <p className="text-lg opacity-40 max-w-2xl mt-4 leading-relaxed">
                 End-to-end dispute lifecycle automation with compliance-first AI that fits how lenders are supervised and examined.
               </p>
+              <div className="flex items-center gap-6 mt-6">
+                {['Reg Z & E Compliant', 'CFPB Exam-Ready', 'Mastercom Integrated'].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 px-4 py-2 text-xs"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.05)',
+                      borderRadius: '24px',
+                      border: '1px solid rgba(255,255,255,0.1)'
+                    }}
+                  >
+                    <CheckCircle className="w-3 h-3 opacity-50" strokeWidth={1.5} />
+                    <span className="opacity-60">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </SlideCanvas>
         );
@@ -449,15 +552,33 @@ export default function Presentation() {
               <h2 className="text-5xl max-w-3xl" style={headerStyle}>Purpose-built AI for regulated lending</h2>
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-5 flex-1">
               {[
-                { icon: Shield, title: 'Compliance-first for US lending', desc: 'Built around the realities of US consumer-lending regulation and supervision. CFPB, OCC, FDIC, NCUA, and state regulators.' },
-                { icon: Settings, title: 'Back-office workflow automation', desc: 'Our agents run full workflows end-to-end, from intake through documentation and system updates.' },
-                { icon: Brain, title: 'Borrower-level memory', desc: 'Every interaction is informed by history: prior calls, promises, hardship notes, disputes, and claims.' },
+                {
+                  icon: Shield,
+                  title: 'Compliance-first for US lending',
+                  desc: 'Built around the realities of US consumer-lending regulation and supervision.',
+                  details: ['CFPB examination readiness', 'OCC, FDIC, NCUA aligned', 'State regulator requirements', 'Reg Z & Reg E encoded'],
+                  highlight: 'Zero compliance shortcuts'
+                },
+                {
+                  icon: Settings,
+                  title: 'Back-office workflow automation',
+                  desc: 'Our agents run full workflows end-to-end, from intake through documentation.',
+                  details: ['12-step dispute lifecycle', 'Mastercom API integration', 'Evidence package generation', 'Decision documentation'],
+                  highlight: '10 of 12 steps automated'
+                },
+                {
+                  icon: Brain,
+                  title: 'Borrower-level memory',
+                  desc: 'Every interaction is informed by history across all touchpoints.',
+                  details: ['Prior disputes & claims', 'Call history & promises', 'Hardship notes', 'Account behavior patterns'],
+                  highlight: 'Full context, every time'
+                },
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="p-7 space-y-5"
+                  className="p-6 flex flex-col"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.03)',
                     borderRadius: '24px',
@@ -465,13 +586,43 @@ export default function Presentation() {
                   }}
                 >
                   <div
-                    className="w-12 h-12 flex items-center justify-center"
-                    style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px'}}
+                    className="w-12 h-12 flex items-center justify-center mb-4"
+                    style={{ backgroundColor: i === 0 ? colors.accentMuted : 'rgba(255,255,255,0.08)', borderRadius: '24px' }}
                   >
-                    <item.icon className="w-5 h-5 opacity-50" strokeWidth={1.5} />
+                    <item.icon className="w-5 h-5" style={{ opacity: i === 0 ? 1 : 0.5, color: i === 0 ? colors.accent : 'white' }} strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-sm opacity-40 leading-relaxed">{item.desc}</p>
+                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="text-sm opacity-40 leading-relaxed mb-4">{item.desc}</p>
+
+                  <div className="flex-1 space-y-2 mb-4">
+                    {item.details.map((detail, j) => (
+                      <div key={j} className="flex items-center gap-2 text-xs">
+                        <CheckCircle className="w-3 h-3 flex-shrink-0" style={{ color: colors.accent }} strokeWidth={1.5} />
+                        <span className="opacity-60">{detail}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div
+                    className="mt-auto pt-4 border-t border-white/10 text-center"
+                  >
+                    <span className="text-xs font-medium" style={{ color: colors.accent }}>{item.highlight}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom stats bar */}
+            <div className="flex items-center justify-center gap-12 py-3 px-6" style={{ backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: '16px' }}>
+              {[
+                { label: 'Regulations Encoded', value: '6+' },
+                { label: 'Exam-Ready Documentation', value: '100%' },
+                { label: 'Steps Automated', value: '10/12' },
+                { label: 'Time to Value', value: '4-8 weeks' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-lg font-semibold" style={{ color: colors.accent }}>{stat.value}</div>
+                  <div className="text-[10px] opacity-40 uppercase tracking-wider">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -482,23 +633,38 @@ export default function Presentation() {
       case 'lifecycle-overview':
         return (
           <SlideCanvas theme="light">
-            <div className="flex flex-col gap-2">
-              <Badge>Product Overview</Badge>
-              <h2 className="text-4xl max-w-3xl" style={headerStyle}>12-Step Dispute Lifecycle</h2>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-2">
+                <Badge>Product Overview</Badge>
+                <h2 className="text-4xl max-w-xl" style={headerStyle}>12-Step Dispute Lifecycle</h2>
+              </div>
+              {/* Quick stats */}
+              <div className="flex gap-4">
+                {[
+                  { value: '10/12', label: 'Automated', color: colors.success },
+                  { value: '2', label: 'Review', color: colors.accent },
+                  { value: '< 10 min', label: 'Total Time', color: colors.charcoal },
+                ].map((stat, i) => (
+                  <div key={i} className="text-center px-3">
+                    <div className="text-xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: stat.color }}>{stat.value}</div>
+                    <div className="text-[9px] uppercase tracking-wider opacity-40">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Main phases with flow */}
-            <div className="flex items-stretch gap-2">
+            <div className="flex items-stretch gap-2 flex-1">
               {[
                 {
                   phase: 'INTAKE',
                   color: '#8B7355',
                   time: '< 1 min',
                   steps: [
-                    { n: '01', t: 'Trigger & Capture', auto: true },
-                    { n: '02', t: 'Classification', auto: true },
-                    { n: '03', t: 'Eligibility Check', auto: true },
-                    { n: '04', t: 'Planning', auto: true },
+                    { n: '01', t: 'Trigger & Capture', auto: true, desc: 'Call, chat, alert' },
+                    { n: '02', t: 'Classification', auto: true, desc: 'Fraud vs non-fraud' },
+                    { n: '03', t: 'Eligibility Check', auto: true, desc: 'Can we act?' },
+                    { n: '04', t: 'Planning', auto: true, desc: 'Investigation path' },
                   ],
                   output: 'Classified claim'
                 },
@@ -507,9 +673,9 @@ export default function Presentation() {
                   color: '#5B8A9A',
                   time: '1-5 min',
                   steps: [
-                    { n: '05', t: 'Early Screening', auto: true },
-                    { n: '06', t: 'Evidence Gathering', auto: true },
-                    { n: '07', t: 'Evaluation', auto: false },
+                    { n: '05', t: 'Early Screening', auto: true, desc: 'Quick wins/stops' },
+                    { n: '06', t: 'Evidence Gathering', auto: true, desc: 'Data collection' },
+                    { n: '07', t: 'Evaluation', auto: false, desc: 'Confidence scoring' },
                   ],
                   output: 'Evidence package'
                 },
@@ -518,8 +684,8 @@ export default function Presentation() {
                   color: '#2E7D32',
                   time: '< 1 min',
                   steps: [
-                    { n: '08', t: 'Decisioning', auto: false },
-                    { n: '09', t: 'Execution', auto: true },
+                    { n: '08', t: 'Decisioning', auto: false, desc: 'Approve/Deny' },
+                    { n: '09', t: 'Execution', auto: true, desc: 'Credits, notices' },
                   ],
                   output: 'Decision + credits'
                 },
@@ -528,9 +694,9 @@ export default function Presentation() {
                   color: colors.charcoal,
                   time: 'Ongoing',
                   steps: [
-                    { n: '10', t: 'Lifecycle Mgmt', auto: true },
-                    { n: '11', t: 'Documentation', auto: true },
-                    { n: '12', t: 'Closeout', auto: true },
+                    { n: '10', t: 'Lifecycle Mgmt', auto: true, desc: 'Responses, escalations' },
+                    { n: '11', t: 'Documentation', auto: true, desc: 'Audit narrative' },
+                    { n: '12', t: 'Closeout', auto: true, desc: 'Final status' },
                   ],
                   output: 'Audit trail'
                 },
@@ -557,31 +723,40 @@ export default function Presentation() {
                     </div>
 
                     {/* Steps */}
-                    <div className="space-y-2 flex-1">
+                    <div className="space-y-1.5 flex-1">
                       {group.steps.map((step, j) => (
-                        <div key={j} className="flex items-center gap-2">
-                          <span className="text-[10px] opacity-30 w-4">{step.n}</span>
-                          <span className="text-[11px] flex-1">{step.t}</span>
-                          <span
-                            className="text-[8px] px-1.5 py-0.5 rounded-full"
-                            style={{
-                              backgroundColor: step.auto
-                                ? (i === 3 ? 'rgba(255,255,255,0.15)' : 'rgba(46,125,50,0.1)')
-                                : (i === 3 ? 'rgba(255,255,255,0.15)' : 'rgba(201,169,98,0.2)'),
-                              color: step.auto
-                                ? (i === 3 ? 'rgba(255,255,255,0.7)' : '#2E7D32')
-                                : (i === 3 ? 'rgba(255,255,255,0.7)' : '#96722E')
-                            }}
-                          >
-                            {step.auto ? 'Auto' : 'Review'}
-                          </span>
+                        <div
+                          key={j}
+                          className="flex items-start gap-2 p-1.5 rounded-lg"
+                          style={{ backgroundColor: i === 3 ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)' }}
+                        >
+                          <span className="text-[9px] opacity-30 w-4 pt-0.5">{step.n}</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1">
+                              <span className="text-[10px] font-medium">{step.t}</span>
+                              <span
+                                className="text-[7px] px-1 py-0.5 rounded-full flex-shrink-0"
+                                style={{
+                                  backgroundColor: step.auto
+                                    ? (i === 3 ? 'rgba(255,255,255,0.15)' : 'rgba(46,125,50,0.1)')
+                                    : (i === 3 ? 'rgba(255,255,255,0.15)' : 'rgba(201,169,98,0.2)'),
+                                  color: step.auto
+                                    ? (i === 3 ? 'rgba(255,255,255,0.7)' : '#2E7D32')
+                                    : (i === 3 ? 'rgba(255,255,255,0.7)' : '#96722E')
+                                }}
+                              >
+                                {step.auto ? 'Auto' : 'Review'}
+                              </span>
+                            </div>
+                            <div className="text-[8px] opacity-40">{step.desc}</div>
+                          </div>
                         </div>
                       ))}
                     </div>
 
                     {/* Output */}
                     <div
-                      className="mt-3 pt-2 text-[10px] text-center border-t"
+                      className="mt-2 pt-2 text-[10px] text-center border-t"
                       style={{ borderColor: i === 3 ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)' }}
                     >
                       <span className="opacity-40">→</span> <span className="font-medium">{group.output}</span>
@@ -600,189 +775,549 @@ export default function Presentation() {
 
             {/* Summary bar */}
             <Card dark className="flex items-center justify-between py-3 px-6">
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-8">
                 {[
-                  { label: 'Total time', value: 'Minutes, not days' },
-                  { label: 'Automation rate', value: '10 of 12 steps' },
-                  { label: 'Audit coverage', value: '100%' },
+                  { icon: Clock, label: 'Total time', value: 'Minutes, not days' },
+                  { icon: Zap, label: 'Automation', value: '10 of 12 steps' },
+                  { icon: Shield, label: 'Audit coverage', value: '100%' },
+                  { icon: FileText, label: 'Documentation', value: 'Auto-generated' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
+                    <item.icon className="w-3.5 h-3.5 opacity-40" strokeWidth={1.5} />
                     <span className="text-xs opacity-40">{item.label}:</span>
                     <span className="text-sm font-semibold">{item.value}</span>
                   </div>
                 ))}
               </div>
-              <div className="text-xs opacity-50">Human review only where judgment matters</div>
             </Card>
           </SlideCanvas>
         );
 
-      // CLAIMS INVESTIGATION UI - Product mockup
-      case 'claims-ui':
+      // PRODUCT DASHBOARD - Claims Dashboard
+      case 'product-dashboard':
         return (
-          <div
-            className="w-full h-full p-10 flex flex-col gap-4 overflow-hidden relative"
-            style={{
-              backgroundColor: colors.creamSecondary,
-              color: colors.charcoal,
-              fontFamily: 'Geist, system-ui, sans-serif',
-            }}
-          >
+          <SlideCanvas theme="light">
             <div className="flex flex-col gap-2">
-              <Badge>Product Preview</Badge>
-              <h2 className="text-3xl max-w-3xl" style={headerStyle}>Claims Investigation Interface</h2>
+              <Badge>Claims Queue</Badge>
+              <h2 className="text-4xl max-w-xl" style={headerStyle}>Unified Claims Dashboard</h2>
+              <p className="text-sm opacity-50 max-w-lg">Every claim in one place. AI recommendations surface what needs attention, so reviewers focus on judgment—not triage.</p>
             </div>
 
-            <div className="flex-1 flex gap-3 min-h-0">
-              {/* Left Panel - Case Info */}
-              <div className="w-[280px] flex flex-col gap-2 overflow-hidden">
-                {/* Cardholder Info */}
-                <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm">
-                  <div className="flex items-center gap-2 text-[9px] uppercase tracking-wider opacity-40 mb-1">
-                    <User className="w-3 h-3" strokeWidth={1.5} />
-                    Cardholder
-                  </div>
-                  <div className="font-semibold text-xs">MARIA THOMPSON</div>
-                  <div className="text-[10px] opacity-50 space-y-0 mt-1">
-                    <div className="flex items-center gap-1.5"><Mail className="w-2.5 h-2.5" strokeWidth={1.5} /> m.thompson@email.com</div>
-                    <div className="flex items-center gap-1.5"><Phone className="w-2.5 h-2.5" strokeWidth={1.5} /> (555) 867-5309</div>
-                    <div className="flex items-center gap-1.5"><MapPin className="w-2.5 h-2.5" strokeWidth={1.5} /> Austin, TX 78701</div>
-                  </div>
-                  <div className="mt-2 pt-2 border-t border-black/5 flex justify-between text-[9px]">
-                    <div><span className="opacity-40">Account</span> <span className="font-mono font-medium">48291056</span></div>
-                    <div><span className="opacity-40">Card</span> <span className="font-mono">••••4521</span></div>
-                  </div>
-                </div>
-
-                {/* Disputed Transaction */}
-                <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm">
-                  <div className="flex items-center gap-2 text-[9px] uppercase tracking-wider opacity-40 mb-1">
-                    <AlertTriangle className="w-2.5 h-2.5" strokeWidth={1.5} />
-                    Disputed Transaction
-                  </div>
-                  <div className="text-[10px] font-medium">LUXE ELECTRONICS ONLINE</div>
-                  <div className="text-[9px] opacity-40">Sep 1, 2025 • MCC: 5732</div>
-                  <div className="text-lg font-semibold mt-1" style={{fontFamily: 'Halant, Georgia, serif'}}>$847.99</div>
-                </div>
-
-                {/* Documentation */}
-                <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm flex-1 overflow-hidden">
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-2 text-[9px] uppercase tracking-wider opacity-40">
-                      <FileText className="w-2.5 h-2.5" strokeWidth={1.5} />
-                      Documentation (21)
+            <div className="grid grid-cols-12 gap-6 flex-1">
+              {/* Left - Feature copy */}
+              <div className="col-span-4 flex flex-col gap-4">
+                <Card className="flex-1 space-y-4">
+                  <h3 className="font-semibold text-sm">What You See at a Glance</h3>
+                  {[
+                    { icon: AlertTriangle, title: 'Action Required', desc: 'Claims needing human review, prioritized by urgency and amount', color: '#F59E0B' },
+                    { icon: Brain, title: 'AI Recommendations', desc: 'Pay, Deny, or Review—with confidence scores and reasoning', color: colors.accent },
+                    { icon: CheckCircle, title: 'Decision Tracking', desc: 'Monitor reviewer throughput and agreement rates', color: colors.success },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${item.color}15`, borderRadius: '12px' }}>
+                        <item.icon className="w-4 h-4" style={{ color: item.color }} strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold">{item.title}</div>
+                        <div className="text-[10px] opacity-50 leading-relaxed">{item.desc}</div>
+                      </div>
                     </div>
-                    <div className="text-[8px] px-1.5 py-0.5 rounded-full" style={{backgroundColor: colors.accentMuted, color: colors.accent}}>
-                      Generate All
+                  ))}
+                </Card>
+
+                <Card dark className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Zap className="w-5 h-5" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    <div>
+                      <div className="text-sm font-semibold">Batch Processing</div>
+                      <div className="text-[10px] opacity-50">Upload claims via CSV or API. Bulk actions for efficiency.</div>
                     </div>
                   </div>
-                  <div className="space-y-1">
+                </Card>
+              </div>
+
+              {/* Right - UI Mockup */}
+              <div className="col-span-8 flex flex-col">
+                <div
+                  className="flex-1 rounded-2xl overflow-hidden border border-black/10"
+                  style={{ backgroundColor: '#FAFAFA', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}
+                >
+                  {/* Mini header */}
+                  <div className="flex items-center justify-between px-4 py-2 border-b border-black/5">
+                    <div className="text-xs font-semibold opacity-70">Claims Dashboard</div>
+                    <div className="flex items-center gap-2 px-2 py-1 text-[9px] rounded" style={{ backgroundColor: '#3B82F6', color: 'white' }}>
+                      <Upload className="w-2.5 h-2.5" strokeWidth={1.5} /> Upload
+                    </div>
+                  </div>
+
+                  {/* Summary cards row */}
+                  <div className="grid grid-cols-3 gap-2 p-3">
+                    <div className="bg-white rounded-lg p-2 border-2" style={{ borderColor: '#F59E0B' }}>
+                      <div className="text-[8px] uppercase opacity-40">Action Required</div>
+                      <div className="text-lg font-semibold" style={{ fontFamily: 'Halant, Georgia, serif' }}>100</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 border border-black/5">
+                      <div className="text-[8px] uppercase opacity-40">AI Recommendations</div>
+                      <div className="flex gap-3 mt-1">
+                        <span className="text-xs" style={{ color: colors.success }}>Pay 55</span>
+                        <span className="text-xs" style={{ color: colors.error }}>Deny 24</span>
+                        <span className="text-xs" style={{ color: '#F59E0B' }}>Review 21</span>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 border border-black/5">
+                      <div className="text-[8px] uppercase opacity-40">Decisions Today</div>
+                      <div className="text-lg font-semibold" style={{ fontFamily: 'Halant, Georgia, serif' }}>0</div>
+                    </div>
+                  </div>
+
+                  {/* Table preview */}
+                  <div className="mx-3 bg-white rounded-lg border border-black/5 overflow-hidden">
+                    <div className="grid grid-cols-6 gap-2 px-3 py-1.5 bg-gray-50 border-b border-black/5 text-[7px] uppercase opacity-40 font-semibold">
+                      <div>Claim ID</div>
+                      <div>Date</div>
+                      <div>Type</div>
+                      <div>Amount</div>
+                      <div className="col-span-2">Status</div>
+                    </div>
                     {[
-                      { name: 'Dispute Case File', date: 'Oct 14, 2025', icon: File },
-                      { name: 'Cardholder Statement', date: 'Sep 23, 2025', icon: MessageSquare },
-                      { name: 'Merchant Response', date: 'Sep 16, 2025', icon: Mail },
-                      { name: 'Decision Narrative', date: 'Sep 16, 2025', icon: FileText },
-                    ].map((doc, i) => (
-                      <div key={i} className="flex items-center gap-1.5 p-1.5 rounded-lg hover:bg-black/[0.02] text-[9px]">
-                        <doc.icon className="w-2.5 h-2.5 opacity-40" strokeWidth={1.5} />
-                        <div className="flex-1 truncate">
-                          <div className="font-medium truncate">{doc.name}</div>
-                          <div className="opacity-40 text-[8px]">{doc.date}</div>
+                      { id: '251201000777C', date: '01/29/26', type: 'Lost/Stolen', amount: '$3,434', rec: 'PAY' },
+                      { id: '251215002178C', date: '01/29/26', type: 'Lost/Stolen', amount: '$2,066', rec: 'PAY' },
+                      { id: '251218001286C', date: '01/29/26', type: 'Card Not Present', amount: '$1,605', rec: 'DENY' },
+                    ].map((row, i) => (
+                      <div key={i} className="grid grid-cols-6 gap-2 px-3 py-1.5 border-b border-black/5 text-[8px]">
+                        <div className="font-mono" style={{ color: '#3B82F6' }}>{row.id}</div>
+                        <div className="opacity-50">{row.date}</div>
+                        <div className="opacity-70">{row.type}</div>
+                        <div className="font-semibold">{row.amount}</div>
+                        <div className="col-span-2 flex items-center gap-1">
+                          <span className="px-1.5 py-0.5 text-[7px] rounded" style={{ backgroundColor: row.rec === 'PAY' ? `${colors.success}15` : `${colors.error}15`, color: row.rec === 'PAY' ? colors.success : colors.error }}>
+                            {row.rec}
+                          </span>
+                          <span className="text-[7px] opacity-40">Needs Review</span>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+            </div>
+          </SlideCanvas>
+        );
 
-              {/* Right Panel - AI Analysis */}
-              <div className="flex-1 flex flex-col gap-2 overflow-hidden">
-                {/* Recommendation Header */}
-                <div className="rounded-xl p-3 border-2" style={{backgroundColor: 'rgba(155, 77, 77, 0.05)', borderColor: 'rgba(155, 77, 77, 0.2)'}}>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <XCircle className="w-4 h-4" style={{color: colors.error}} strokeWidth={1.5} />
-                      <span className="text-sm font-semibold">Recommend: <span style={{color: colors.error}}>DENY</span></span>
-                      <span className="text-[8px] px-1.5 py-0.5 rounded-full font-semibold" style={{backgroundColor: colors.error, color: 'white'}}>
-                        HIGH CONFIDENCE
-                      </span>
+      // CLAIMS INVESTIGATION UI - Product mockup (Updated)
+      case 'claims-ui':
+        return (
+          <SlideCanvas theme="light">
+            <div className="flex flex-col gap-2">
+              <Badge>Claim Investigation</Badge>
+              <h2 className="text-4xl max-w-xl" style={headerStyle}>AI-Powered Decision Support</h2>
+              <p className="text-sm opacity-50 max-w-lg">Every claim gets a thorough, documented investigation. AI synthesizes evidence and explains its reasoning—reviewers confirm or override with full context.</p>
+            </div>
+
+            <div className="grid grid-cols-12 gap-6 flex-1">
+              {/* Left - Feature copy */}
+              <div className="col-span-4 flex flex-col gap-4">
+                <Card className="flex-1 space-y-4">
+                  <h3 className="font-semibold text-sm">Investigation Capabilities</h3>
+                  {[
+                    { icon: Brain, title: 'Decision Summary', desc: 'Plain-language explanation of recommendation with confidence level and key evidence', color: colors.accent },
+                    { icon: Search, title: '26+ Investigation Steps', desc: 'Automated checks across account activity, transactions, devices, and behavioral patterns', color: '#3B82F6' },
+                    { icon: Filter, title: 'Evidence Categorization', desc: 'Each data point tagged as Pay, Deny, Inconclusive, or Missing Data', color: colors.success },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${item.color}15`, borderRadius: '12px' }}>
+                        <item.icon className="w-4 h-4" style={{ color: item.color }} strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold">{item.title}</div>
+                        <div className="text-[10px] opacity-50 leading-relaxed">{item.desc}</div>
+                      </div>
                     </div>
-                    <span className="text-[9px] opacity-40">Actual Outcome: Resolved-Denied ✓</span>
+                  ))}
+                </Card>
+
+                <Card dark className="p-4">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    <div>
+                      <div className="text-sm font-semibold">Audit-Ready</div>
+                      <div className="text-[10px] opacity-50">Every decision logged with full evidence trail for Reg E compliance.</div>
+                    </div>
                   </div>
-                  <p className="text-[10px] opacity-60 leading-relaxed">
-                    The claim of fraud is undermined by inconsistencies in cardholder statements regarding card possession and confirmation from the merchant that the card was used for the transaction.
-                  </p>
+                </Card>
+              </div>
+
+              {/* Right - UI Mockup */}
+              <div className="col-span-8 flex flex-col">
+                <div
+                  className="flex-1 rounded-2xl overflow-hidden border border-black/10"
+                  style={{ backgroundColor: '#FAFAFA', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}
+                >
+                  {/* Mini header bar */}
+                  <div className="flex items-center justify-between px-3 py-1.5 border-b border-black/5">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1 text-[8px] opacity-40">
+                        <ArrowLeft className="w-2.5 h-2.5" strokeWidth={1.5} />
+                        Back
+                      </div>
+                      <div>
+                        <div className="text-[7px] uppercase opacity-30">Recommendation</div>
+                        <div className="text-[9px] font-semibold" style={{ color: colors.accent }}>Needs Review</div>
+                      </div>
+                      <div className="px-1.5 py-0.5 text-[7px] rounded border border-black/10 flex items-center gap-1">
+                        <AlertTriangle className="w-2 h-2" strokeWidth={1.5} />
+                        Fraud
+                      </div>
+                      <div>
+                        <div className="text-[7px] uppercase opacity-30">Claim ID</div>
+                        <div className="text-[8px] font-mono">251117001143C</div>
+                      </div>
+                      <div>
+                        <div className="text-[7px] uppercase opacity-30">Amount</div>
+                        <div className="text-[8px] font-semibold">$535.53</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <button className="px-2 py-1 text-[8px] font-medium text-white rounded" style={{ backgroundColor: colors.charcoal }}>
+                        Approve
+                      </button>
+                      <button className="px-2 py-1 text-[8px] font-medium rounded border border-black/10">
+                        Reject
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Decision Summary */}
+                  <div className="mx-3 mt-2 bg-white rounded-lg p-2.5 border-l-3" style={{ borderLeftWidth: '3px', borderLeftColor: colors.error, boxShadow: '0 1px 2px rgba(0,0,0,0.03)' }}>
+                    <div className="flex items-start gap-2">
+                      <div className="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0" style={{ backgroundColor: 'rgba(155,77,77,0.1)' }}>
+                        <CheckCircle className="w-2.5 h-2.5" style={{ color: colors.error }} strokeWidth={1.5} />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-1.5 mb-0.5">
+                          <span className="font-semibold text-[9px]">Decision Summary</span>
+                          <span className="text-[7px] opacity-40">WEAK • 26 STEPS</span>
+                        </div>
+                        <p className="text-[7px] opacity-50 leading-relaxed">
+                          Manual review: conflicting indicators—device/IP suggests involvement, but new-account status and 3DS flags indicate possible takeover.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tabs */}
+                  <div className="flex items-center gap-3 mx-3 mt-2 border-b border-black/10 pb-1.5">
+                    {[
+                      { label: 'Investigation Steps', active: true },
+                      { label: 'Transactions', active: false },
+                      { label: 'Documents', active: false },
+                      { label: 'Cardholder', active: false },
+                    ].map((tab, i) => (
+                      <div key={i} className={`text-[8px] pb-1 ${tab.active ? 'border-b border-black font-semibold' : 'opacity-40'}`}>
+                        {tab.label}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Investigation steps */}
+                  <div className="mx-3 mt-2 space-y-1.5 pb-2">
+                    {[
+                      { section: 'ACCOUNT ACTIVITY', steps: 1, result: 'Supports Deny', resultColor: colors.error },
+                      { section: 'ACCOUNT INTERACTIONS', steps: 1, result: 'Missing Data', resultColor: colors.accent },
+                      { section: 'TRANSACTION ANALYSIS', steps: 3, result: 'Inconclusive', resultColor: '#6B7280' },
+                      { section: 'DEVICE & NETWORK', steps: 5, result: 'Supports Deny', resultColor: colors.error },
+                    ].map((group, i) => (
+                      <div key={i} className="bg-white rounded border border-black/5">
+                        <div className="flex items-center justify-between px-2 py-1.5">
+                          <div className="flex items-center gap-1.5">
+                            <ChevronDown className="w-2 h-2 opacity-40" strokeWidth={1.5} />
+                            <span className="text-[7px] font-semibold uppercase tracking-wider opacity-60">{group.section}</span>
+                            <span className="text-[6px] opacity-30">({group.steps})</span>
+                          </div>
+                          <span className="text-[7px] font-medium" style={{ color: group.resultColor }}>{group.result}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              </div>
+            </div>
+          </SlideCanvas>
+        );
 
-                {/* Analysis Grid */}
-                <div className="flex-1 grid grid-cols-2 gap-2 min-h-0">
-                  {/* What Customer Claims */}
-                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
-                    <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">What the Customer Claims</div>
-                    <p className="text-[10px] opacity-70 leading-relaxed">
-                      Cardholder claims that a fraudulent transaction of $847.99 occurred on her card, which she asserts she had in her possession at all times.
-                    </p>
-                    <div className="mt-2 pt-2 border-t border-black/5">
-                      <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">Timeline</div>
-                      <div className="space-y-0.5 text-[9px] opacity-60">
-                        <div>• 09/02/2025 - Transaction occurred</div>
-                        <div>• 09/08/2025 - Reported as fraudulent</div>
-                        <div>• 01/13/2026 - Requests to reopen claim</div>
+      // PRODUCT REPORTING - Disputes Reporting mockup
+      case 'product-reporting':
+        return (
+          <SlideCanvas theme="secondary">
+            <div className="flex flex-col gap-2">
+              <Badge>Analytics</Badge>
+              <h2 className="text-4xl max-w-xl" style={headerStyle}>Disputes Reporting</h2>
+              <p className="text-sm opacity-50 max-w-lg">Real-time visibility into dispute operations. Track volume, resolution times, and containment—spot issues before they become problems.</p>
+            </div>
+
+            <div className="grid grid-cols-12 gap-6 flex-1">
+              {/* Left - Feature copy */}
+              <div className="col-span-4 flex flex-col gap-4">
+                <Card className="flex-1 space-y-4">
+                  <h3 className="font-semibold text-sm">Key Metrics at a Glance</h3>
+                  {[
+                    { icon: TrendingUp, title: 'Volume Tracking', desc: 'Monitor dispute volume by day, week, or month with trend analysis', color: '#3B82F6' },
+                    { icon: Clock, title: 'Resolution Time', desc: 'Average time from claim receipt to decision—track agent efficiency', color: colors.accent },
+                    { icon: CheckCircle, title: 'Containment Rate', desc: 'Percentage of disputes resolved without escalation or representment', color: colors.success },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${item.color}15`, borderRadius: '12px' }}>
+                        <item.icon className="w-4 h-4" style={{ color: item.color }} strokeWidth={1.5} />
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold">{item.title}</div>
+                        <div className="text-[10px] opacity-50 leading-relaxed">{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <Card dark className="p-4">
+                  <div className="flex items-center gap-3">
+                    <BarChart3 className="w-5 h-5" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    <div>
+                      <div className="text-sm font-semibold">Dispute Reasons</div>
+                      <div className="text-[10px] opacity-50">Drill down by fraud type, merchant category, or reason code.</div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Right - UI Mockup */}
+              <div className="col-span-8 flex flex-col">
+                <div
+                  className="flex-1 rounded-2xl overflow-hidden border border-black/10"
+                  style={{ backgroundColor: '#FAFAFA', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}
+                >
+                  {/* Mini header */}
+                  <div className="flex items-center justify-between px-3 py-1.5 border-b border-black/5">
+                    <div className="text-[9px] font-semibold opacity-70">Disputes Reporting</div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 text-[7px] opacity-40">
+                        {['Day', 'Week', 'Month'].map((item, i) => (
+                          <span key={i} className={`px-1.5 py-0.5 rounded ${i === 0 ? 'bg-black text-white' : ''}`}>{item}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-1 px-2 py-0.5 text-[7px] rounded border border-black/10 opacity-50">
+                        <Clock className="w-2 h-2" strokeWidth={1.5} />
+                        Jan 22-29
                       </div>
                     </div>
                   </div>
 
-                  {/* Our Assessment */}
-                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
-                    <div className="text-[9px] uppercase tracking-wider opacity-40 mb-1">Our Assessment</div>
-                    <p className="text-[10px] opacity-70 leading-relaxed">
-                      The evidence suggests inconsistencies in the cardholder's claims. Initial statements confirm card possession, but later communications indicate uncertainty.
-                    </p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-[9px] opacity-40">Credibility:</span>
-                      <span className="text-[10px] font-semibold" style={{color: colors.error}}>Low</span>
+                  {/* Metrics row */}
+                  <div className="grid grid-cols-5 gap-1.5 p-2">
+                    {[
+                      { label: 'Total Disputes', value: '851', change: '+50%', positive: true },
+                      { label: 'Avg Resolution', value: '5m 26s', change: '-3%', positive: true },
+                      { label: 'Handle Time', value: '6m 41s', change: '+5%', positive: false },
+                      { label: 'Containment', value: '86%', change: '+13%', positive: true },
+                      { label: 'Completion', value: '59%', change: '+10%', positive: true },
+                    ].map((m, i) => (
+                      <div key={i} className="bg-white rounded-lg p-1.5 border border-black/5">
+                        <div className="text-[6px] opacity-40 uppercase">{m.label}</div>
+                        <div className="text-sm font-semibold" style={{ fontFamily: 'Halant, Georgia, serif' }}>{m.value}</div>
+                        <div className="text-[6px]" style={{ color: m.positive ? colors.success : colors.error }}>{m.change}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Chart */}
+                  <div className="mx-2 bg-white rounded-lg p-2 border border-black/5">
+                    <div className="text-[8px] font-semibold mb-1">Dispute Trends</div>
+                    <div className="relative h-20">
+                      <svg className="w-full h-full" viewBox="0 0 400 60" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="chartGradient2" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M0,40 C25,35 50,15 75,12 C100,10 125,12 150,30 C175,47 200,55 225,52 C250,50 275,45 300,42 C325,40 350,35 375,25 C400,15 400,60 0,60 Z" fill="url(#chartGradient2)" />
+                        <path d="M0,40 C25,35 50,15 75,12 C100,10 125,12 150,30 C175,47 200,55 225,52 C250,50 275,45 300,42 C325,40 350,35 375,25 C400,15 400,15 400,15" fill="none" stroke="#3B82F6" strokeWidth="1.5" />
+                      </svg>
+                    </div>
+                    <div className="flex justify-between text-[6px] opacity-30 mt-0.5">
+                      <span>01/22</span><span>01/24</span><span>01/26</span><span>01/28</span>
                     </div>
                   </div>
 
-                  {/* Red Flags */}
-                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
-                    <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wider mb-1" style={{color: colors.error}}>
-                      <Flag className="w-2.5 h-2.5" strokeWidth={1.5} />
-                      Red Flags (2)
+                  {/* Reasons */}
+                  <div className="mx-2 mt-2 bg-white rounded-lg p-2 border border-black/5 mb-2">
+                    <div className="text-[8px] font-semibold mb-1.5">Dispute Reasons</div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: 'Non-Fraud', pct: 45, count: 380 },
+                        { label: 'Fraud - Card Present', pct: 32, count: 272 },
+                        { label: 'Fraud - Card Not Present', pct: 23, count: 199 },
+                      ].map((r, i) => (
+                        <div key={i}>
+                          <div className="flex justify-between text-[7px] mb-0.5">
+                            <span className="font-medium">{r.label}</span>
+                            <span className="opacity-50">{r.count} ({r.pct}%)</span>
+                          </div>
+                          <div className="h-1 rounded-full overflow-hidden" style={{ backgroundColor: colors.creamSecondary }}>
+                            <div className="h-full rounded-full" style={{ width: `${r.pct * 2}%`, backgroundColor: '#3B82F6' }}></div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="space-y-1.5 text-[9px]">
-                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(155, 77, 77, 0.05)'}}>
-                        <span className="opacity-70">Inconsistency in claims regarding card possession</span>
-                        <span className="ml-1 opacity-40">[NOTE-1]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SlideCanvas>
+        );
+
+      // PRODUCT TRENDS - Fraud Trend Analysis mockup
+      case 'product-trends':
+        return (
+          <SlideCanvas theme="light">
+            <div className="flex flex-col gap-2">
+              <Badge>Fraud Intelligence</Badge>
+              <h2 className="text-4xl max-w-xl" style={headerStyle}>Fraud Trend Analysis</h2>
+              <p className="text-sm opacity-50 max-w-lg">Spot organized fraud before it spreads. AI links claims by merchant, IP, device, and behavioral patterns—revealing rings that manual review would miss.</p>
+            </div>
+
+            <div className="grid grid-cols-12 gap-6 flex-1">
+              {/* Left - Feature copy */}
+              <div className="col-span-4 flex flex-col gap-4">
+                <Card className="flex-1 space-y-4">
+                  <h3 className="font-semibold text-sm">Pattern Detection</h3>
+                  {[
+                    { icon: Store, title: 'Merchant Clustering', desc: 'Identify merchants appearing across multiple unrelated claims—potential fraud hotspots', color: colors.accent },
+                    { icon: Globe, title: 'Network Analysis', desc: 'Link claims by IP address, subnet, device fingerprint, or phone number', color: '#3B82F6' },
+                    { icon: AlertTriangle, title: 'Risk Scoring', desc: 'Surface high-risk patterns: same IP across accounts, rapid account creation, etc.', color: '#F59E0B' },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${item.color}15`, borderRadius: '12px' }}>
+                        <item.icon className="w-4 h-4" style={{ color: item.color }} strokeWidth={1.5} />
                       </div>
-                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(155, 77, 77, 0.05)'}}>
-                        <span className="opacity-70">Merchant records confirm card was used</span>
-                        <span className="ml-1 opacity-40">[CORR-4]</span>
+                      <div>
+                        <div className="text-xs font-semibold">{item.title}</div>
+                        <div className="text-[10px] opacity-50 leading-relaxed">{item.desc}</div>
                       </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <Card dark className="p-4">
+                  <div className="flex items-center gap-3">
+                    <RefreshCw className="w-5 h-5" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    <div>
+                      <div className="text-sm font-semibold">Continuous Learning</div>
+                      <div className="text-[10px] opacity-50">Re-analyze claims as new data arrives. Patterns emerge over time.</div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Right - UI Mockup */}
+              <div className="col-span-8 flex flex-col">
+                <div
+                  className="flex-1 rounded-2xl overflow-hidden border border-black/10"
+                  style={{ backgroundColor: '#FAFAFA', boxShadow: '0 8px 32px rgba(0,0,0,0.08)' }}
+                >
+                  {/* Mini header */}
+                  <div className="flex items-center justify-between px-3 py-1.5 border-b border-black/5">
+                    <div className="text-[9px] font-semibold opacity-70">Fraud Trend Analysis</div>
+                    <div className="flex items-center gap-1.5">
+                      <button className="flex items-center gap-1 px-2 py-0.5 text-[7px] font-medium rounded border border-black/10">
+                        <RefreshCw className="w-2 h-2" strokeWidth={1.5} />
+                        Process New
+                      </button>
                     </div>
                   </div>
 
-                  {/* Supporting Factors */}
-                  <div className="bg-white rounded-xl p-3 border border-black/5 shadow-sm overflow-hidden">
-                    <div className="flex items-center gap-1.5 text-[9px] uppercase tracking-wider mb-1" style={{color: colors.success}}>
-                      <CheckCircle className="w-2.5 h-2.5" strokeWidth={1.5} />
-                      Supporting Factors (2)
+                  {/* Alert banner */}
+                  <div className="mx-2 mt-2 flex items-center justify-between px-2 py-1.5 rounded-lg border" style={{ borderColor: '#F59E0B', backgroundColor: '#FFFBEB' }}>
+                    <div className="flex items-center gap-1.5 text-[8px]" style={{ color: '#D97706' }}>
+                      <AlertTriangle className="w-3 h-3" strokeWidth={1.5} />
+                      34 new claims available for analysis
                     </div>
-                    <div className="space-y-1.5 text-[9px]">
-                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(61, 124, 94, 0.05)'}}>
-                        <span className="opacity-70">Initially claimed card in possession</span>
-                        <span className="ml-1 opacity-40">[NOTE-1]</span>
+                    <button className="px-2 py-0.5 text-[7px] font-medium rounded border" style={{ borderColor: '#F59E0B', color: '#D97706' }}>
+                      Analyze
+                    </button>
+                  </div>
+
+                  {/* Metrics row */}
+                  <div className="grid grid-cols-4 gap-1.5 p-2">
+                    {[
+                      { label: 'Claims Analyzed', value: '27' },
+                      { label: 'Identifiers', value: '706' },
+                      { label: 'Trends Detected', value: '10', highlight: true },
+                      { label: 'At Risk', value: '$3,349' },
+                    ].map((m, i) => (
+                      <div key={i} className="bg-white rounded-lg p-1.5" style={{ border: m.highlight ? '1.5px solid #F59E0B' : '1px solid rgba(0,0,0,0.05)' }}>
+                        <div className="text-[6px] opacity-40 uppercase">{m.label}</div>
+                        <div className="text-sm font-semibold" style={{ fontFamily: 'Halant, Georgia, serif' }}>{m.value}</div>
                       </div>
-                      <div className="p-1.5 rounded-lg" style={{backgroundColor: 'rgba(61, 124, 94, 0.05)'}}>
-                        <span className="opacity-70">No prior relationship with merchant</span>
-                        <span className="ml-1 opacity-40">[INTAKE-Q2]</span>
+                    ))}
+                  </div>
+
+                  {/* Trends panels */}
+                  <div className="grid grid-cols-2 gap-2 px-2 pb-2">
+                    {/* Merchant Trends */}
+                    <div className="bg-white rounded-lg p-2 border border-black/5">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-1">
+                          <Store className="w-3 h-3 opacity-50" strokeWidth={1.5} />
+                          <span className="font-semibold text-[8px]">Merchant Trends</span>
+                        </div>
+                        <span className="text-[7px]" style={{ color: colors.accent }}>6</span>
+                      </div>
+                      <div className="space-y-1">
+                        {[
+                          { name: 'amazon', claims: 3, risk: '$587' },
+                          { name: "mcdonald's", claims: 3, risk: '$32' },
+                          { name: 'chevron', claims: 2, risk: '$136' },
+                        ].map((m, i) => (
+                          <div key={i} className="flex items-center justify-between p-1.5 rounded border border-black/5">
+                            <span className="text-[8px] font-medium">{m.name}</span>
+                            <div className="flex items-center gap-2 text-[7px]">
+                              <span style={{ color: '#F59E0B' }}>{m.claims} claims</span>
+                              <span style={{ color: colors.error }}>{m.risk}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* IP Trends */}
+                    <div className="bg-white rounded-lg p-2 border border-black/5">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-1">
+                          <Wifi className="w-3 h-3 opacity-50" strokeWidth={1.5} />
+                          <span className="font-semibold text-[8px]">IP/Subnet Trends</span>
+                        </div>
+                        <span className="text-[7px]" style={{ color: colors.accent }}>3</span>
+                      </div>
+                      <div className="space-y-1">
+                        {[
+                          { subnet: '172.56.222.0/24', claims: 2, risk: '$1,006' },
+                          { subnet: '172.56.65.0/24', claims: 2, risk: '$464' },
+                          { subnet: '174.197.70.0/24', claims: 2, risk: '$236' },
+                        ].map((ip, i) => (
+                          <div key={i} className="flex items-center justify-between p-1.5 rounded border border-black/5">
+                            <span className="text-[7px] font-mono font-medium">{ip.subnet}</span>
+                            <div className="flex items-center gap-2 text-[7px]">
+                              <span style={{ color: '#F59E0B' }}>{ip.claims}</span>
+                              <span style={{ color: colors.error }}>{ip.risk}</span>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </SlideCanvas>
         );
 
       // PHASE 1 - Process detail
@@ -999,54 +1534,135 @@ export default function Presentation() {
       case 'simulations':
         return (
           <SlideCanvas theme="secondary">
-            <div className="flex flex-col gap-4">
-              <Badge>Programmatic Advantage</Badge>
-              <h2 className="text-4xl max-w-3xl" style={headerStyle}>Simulation & What-If Analysis</h2>
-              <p className="text-sm opacity-60 max-w-2xl">Because rules are programmatic and data is unified, you can simulate policy changes against historical data before deploying.</p>
-            </div>
-            
-            <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-6">
-                <Card className="space-y-3">
-                  <h3 className="font-semibold">What-If Scenarios</h3>
-                  {[
-                    { q: '"Raise auto-approve threshold from $500 to $750?"', a: '→ Impact on approval rate, loss rate, handle time' },
-                    { q: '"Require only 1 strong link instead of 2?"', a: '→ Fraud exposure vs customer experience tradeoff' },
-                    { q: '"Auto-deny repeat claimants with 3+ disputes?"', a: '→ Quantify false positive risk' },
-                  ].map((item, i) => (
-                    <div key={i} className="p-3 border-l-4 border-black/10" style={{backgroundColor: colors.cream, borderRadius: '0 16px 16px 0'}}>
-                      <div className="text-xs font-semibold">{item.q}</div>
-                      <div className="text-[10px] opacity-50 mt-1">{item.a}</div>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-2">
+                <Badge>Programmatic Advantage</Badge>
+                <h2 className="text-4xl max-w-xl" style={headerStyle}>Simulation & What-If Analysis</h2>
+                <p className="text-sm opacity-50 max-w-lg">Test policy changes against historical data before deploying. Quantify tradeoffs with zero risk.</p>
+              </div>
+              {/* Key benefits */}
+              <div className="flex gap-4">
+                {[
+                  { icon: Shield, label: 'Zero Risk', desc: 'Test safely' },
+                  { icon: BarChart3, label: 'Data-Driven', desc: 'Quantified' },
+                  { icon: Zap, label: 'Fast Iteration', desc: 'Minutes' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2 px-3 py-2" style={{ backgroundColor: 'white', borderRadius: '16px', border: '1px solid rgba(0,0,0,0.04)' }}>
+                    <item.icon className="w-4 h-4" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    <div>
+                      <div className="text-xs font-semibold">{item.label}</div>
+                      <div className="text-[9px] opacity-40">{item.desc}</div>
                     </div>
-                  ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-12 gap-5 flex-1">
+              {/* Left - What-If Scenarios */}
+              <div className="col-span-5 flex flex-col gap-4">
+                <Card className="flex-1">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: colors.accentMuted, borderRadius: '16px' }}>
+                      <Search className="w-4 h-4" style={{ color: colors.accent }} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-semibold text-sm">What-If Scenarios</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      { q: 'Raise auto-approve threshold from $25 to $50?', impact: 'Approval rate, loss exposure, handle time', icon: DollarSign },
+                      { q: 'Require only 1 strong link instead of 2?', impact: 'Fraud exposure vs customer experience', icon: Target },
+                      { q: 'Auto-deny repeat claimants with 3+ disputes?', impact: 'False positive risk, customer impact', icon: XCircle },
+                      { q: 'Extend provisional credit window by 5 days?', impact: 'Cash flow, customer satisfaction', icon: Clock },
+                    ].map((item, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 p-3"
+                        style={{ backgroundColor: colors.cream, borderRadius: '12px' }}
+                      >
+                        <div className="w-6 h-6 flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'white', borderRadius: '8px' }}>
+                          <item.icon className="w-3 h-3 opacity-50" strokeWidth={1.5} />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs font-medium">{item.q}</div>
+                          <div className="text-[10px] opacity-40 mt-0.5">→ {item.impact}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </Card>
               </div>
-              <div className="col-span-6 space-y-4">
-                <Card className="space-y-3">
-                  <h3 className="font-semibold">Simulation Outputs</h3>
-                  {[
-                    { label: 'Approval Rate Change', value: '+12.3%', pct: 62, color: '#4CAF50' },
-                    { label: 'Projected Loss Impact', value: '+$23K/mo', pct: 28, color: '#FF9800' },
-                    { label: 'Handle Time Reduction', value: '-34%', pct: 75, color: '#2196F3' },
-                  ].map((item, i) => (
-                    <div key={i} className="p-2" style={{backgroundColor: colors.cream, borderRadius: '12px'}}>
-                      <div className="flex justify-between text-xs mb-1">
-                        <span className="opacity-60">{item.label}</span>
-                        <span className="font-semibold" style={{color: item.color}}>{item.value}</span>
-                      </div>
-                      <div className="w-full h-1.5" style={{backgroundColor: '#e5e0da', borderRadius: '4px'}}>
-                        <div className="h-1.5" style={{backgroundColor: item.color, width: `${item.pct}%`, borderRadius: '4px'}}></div>
-                      </div>
+
+              {/* Right - Simulation Output */}
+              <div className="col-span-7 flex flex-col gap-4">
+                <Card dark className="flex-1 p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <BarChart3 className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                      <h3 className="font-semibold text-sm">Simulation Output</h3>
                     </div>
-                  ))}
+                    <div className="text-[9px] px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+                      Auto-approve $25 → $50
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4 mb-5">
+                    {[
+                      { label: 'Approval Rate', value: '+12.3%', sub: '68% → 80%', color: colors.success },
+                      { label: 'Loss Exposure', value: '+$23K', sub: 'Monthly increase', color: '#F59E0B' },
+                      { label: 'Handle Time', value: '-34%', sub: '6.2 → 4.1 min', color: colors.accent },
+                    ].map((metric, i) => (
+                      <div key={i} className="text-center p-3 rounded-xl" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                        <div className="text-2xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: metric.color }}>{metric.value}</div>
+                        <div className="text-[10px] opacity-50 mt-1">{metric.label}</div>
+                        <div className="text-[9px] opacity-30">{metric.sub}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="space-y-3">
+                    {[
+                      { label: 'Claims Auto-Approved', before: '2,340', after: '3,120', pct: 78, color: colors.success },
+                      { label: 'Claims Requiring Review', before: '1,660', after: '880', pct: 22, color: colors.accent },
+                      { label: 'Projected Monthly Losses', before: '$45K', after: '$68K', pct: 45, color: '#F59E0B' },
+                    ].map((item, i) => (
+                      <div key={i}>
+                        <div className="flex justify-between text-[10px] mb-1">
+                          <span className="opacity-60">{item.label}</span>
+                          <span className="opacity-40">{item.before} → <span className="font-semibold text-white">{item.after}</span></span>
+                        </div>
+                        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}>
+                          <div className="h-full rounded-full" style={{ backgroundColor: item.color, width: `${item.pct}%` }}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+                    <div className="text-[10px] opacity-40">Based on last 90 days of dispute data</div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] opacity-60">Net Impact:</span>
+                      <span className="text-sm font-semibold" style={{ color: colors.success }}>+$41K/mo savings</span>
+                    </div>
+                  </div>
                 </Card>
-                <div className="grid grid-cols-3 gap-3">
-                  {['Zero Risk', 'Data-Driven', 'Fast Iteration'].map((item, i) => (
-                    <Card key={i} className="text-center py-3">
-                      <div className="text-sm" style={headerStyle}>{item}</div>
-                      <div className="text-[10px] opacity-50">{['Test before going live', 'Quantify tradeoffs', 'Hundreds of scenarios'][i]}</div>
-                    </Card>
-                  ))}
+
+                {/* Bottom action row */}
+                <div className="flex items-center gap-3">
+                  <Card className="flex-1 flex items-center gap-3 p-3">
+                    <RefreshCw className="w-4 h-4 opacity-40" strokeWidth={1.5} />
+                    <div>
+                      <div className="text-xs font-semibold">Run hundreds of scenarios</div>
+                      <div className="text-[10px] opacity-40">Test any parameter combination</div>
+                    </div>
+                  </Card>
+                  <Card className="flex-1 flex items-center gap-3 p-3">
+                    <CheckCircle className="w-4 h-4" style={{ color: colors.success }} strokeWidth={1.5} />
+                    <div>
+                      <div className="text-xs font-semibold">Deploy with confidence</div>
+                      <div className="text-[10px] opacity-40">Version-controlled rule changes</div>
+                    </div>
+                  </Card>
                 </div>
               </div>
             </div>
@@ -1261,104 +1877,216 @@ export default function Presentation() {
               <h2 className="text-5xl max-w-3xl" style={headerStyle}>Before & After Salient</h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 flex-1">
-              <Card className="space-y-5 flex flex-col">
-                <h3 className="text-xl font-semibold opacity-30" style={headerStyle}>Without Salient</h3>
-                <ul className="space-y-3 text-sm opacity-60 flex-1">
+            <div className="grid grid-cols-2 gap-6 flex-1">
+              {/* Without Salient */}
+              <Card className="flex flex-col" style={{ backgroundColor: colors.creamSecondary, border: 'none' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: 'rgba(155,77,77,0.1)', borderRadius: '24px' }}>
+                    <XCircle className="w-4 h-4" style={{ color: colors.error }} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-lg font-semibold opacity-50" style={headerStyle}>Without Salient</h3>
+                </div>
+                <div className="space-y-2 flex-1">
                   {[
-                    'Manual investigation (days to weeks)',
-                    'Inconsistent decisions across analysts',
-                    'Compliance gaps & exam risk',
-                    '$25-40+ per dispute',
-                    'No clear audit trail',
-                    'Manual Mastercom case filing'
+                    { text: 'Manual investigation', sub: 'Days to weeks per case' },
+                    { text: 'Inconsistent decisions', sub: 'Varies by analyst' },
+                    { text: 'Compliance gaps', sub: 'Exam risk exposure' },
+                    { text: '$25-40+ per dispute', sub: 'High operational cost' },
+                    { text: 'No audit trail', sub: 'Documentation in emails' },
+                    { text: 'Manual case filing', sub: 'Mastercom by hand' },
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full opacity-40" style={{backgroundColor: colors.charcoal}}></div>
-                      {item}
-                    </li>
+                    <div key={i} className="flex items-start gap-3 p-2" style={{ backgroundColor: 'white', borderRadius: '12px' }}>
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: colors.error, opacity: 0.5 }}></div>
+                      <div>
+                        <div className="text-sm font-medium opacity-70">{item.text}</div>
+                        <div className="text-[10px] opacity-40">{item.sub}</div>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </Card>
-              <Card dark className="space-y-5 flex flex-col">
-                <h3 className="text-xl font-semibold" style={headerStyle}>With Salient</h3>
-                <ul className="space-y-3 text-sm opacity-70 flex-1">
+
+              {/* With Salient */}
+              <Card dark className="flex flex-col">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: colors.accentMuted, borderRadius: '24px' }}>
+                    <CheckCircle className="w-4 h-4" style={{ color: colors.accent }} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-lg font-semibold" style={headerStyle}>With Salient</h3>
+                </div>
+                <div className="space-y-2 flex-1">
                   {[
-                    'Automated 12-step lifecycle (minutes)',
-                    'Consistent, rule-based outcomes',
-                    'Compliance encoded & enforced',
-                    '60% cost reduction',
-                    'Complete audit trail & versioning',
-                    'Direct Mastercom API integration'
+                    { text: 'Automated 12-step lifecycle', sub: 'Minutes, not days' },
+                    { text: 'Consistent rule-based outcomes', sub: 'Every time, auditable' },
+                    { text: 'Compliance encoded & enforced', sub: 'Reg Z, E, CFPB built-in' },
+                    { text: '60% cost reduction', sub: '$30 → $12 per dispute' },
+                    { text: 'Complete audit trail', sub: 'Versioned, searchable' },
+                    { text: 'Direct Mastercom API', sub: 'Automated filing & lifecycle' },
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3">
-                      <CheckCircle className="w-4 h-4 flex-shrink-0" style={{color: colors.accent}} strokeWidth={1.5} />
-                      {item}
-                    </li>
+                    <div key={i} className="flex items-start gap-3 p-2" style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+                      <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: colors.accent }} strokeWidth={1.5} />
+                      <div>
+                        <div className="text-sm font-medium opacity-90">{item.text}</div>
+                        <div className="text-[10px] opacity-40">{item.sub}</div>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </Card>
             </div>
           </SlideCanvas>
         );
       
-      // VALUE PROP - ROI Data slide
-      case 'value-prop':
+      // BUSINESS CASE - Combined ROI and Opportunity slide
+      case 'business-case':
         return (
           <SlideCanvas theme="secondary">
-            <div className="flex flex-col gap-4">
-              <Badge>Value Analysis</Badge>
-              <h2 className="text-5xl max-w-3xl" style={headerStyle}>The Business Case for Yendo</h2>
-            </div>
-
-            <div className="flex-1 flex flex-col justify-center gap-10">
-              <div className="flex gap-16 justify-center">
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-2">
+                <Badge>Value Analysis</Badge>
+                <h2 className="text-4xl max-w-xl" style={headerStyle}>The Business Case</h2>
+              </div>
+              {/* Top-line metrics */}
+              <div className="flex gap-6">
                 {[
-                  { value: '60%', label: 'Cost Reduction', desc: '$30 → $12 per dispute' },
-                  { value: '90%+', label: 'Faster Resolution', desc: 'Days reduced to minutes' },
-                  { value: '100%', label: 'Audit Coverage', desc: 'Exam-ready documentation' },
+                  { value: '60%', label: 'Cost Reduction', color: colors.success },
+                  { value: '90%+', label: 'Faster', color: colors.accent },
+                  { value: '100%', label: 'Audit Coverage', color: colors.charcoal },
                 ].map((m, i) => (
-                  <div key={i} className="flex flex-col gap-2 pl-8" style={{ borderLeft: `3px solid ${colors.accent}` }}>
-                    <div className="text-6xl tracking-tight" style={{ fontFamily: 'Halant, Georgia, serif', lineHeight: '1', fontWeight: 500 }}>
-                      {m.value}
-                    </div>
-                    <div className="font-bold uppercase tracking-widest text-[10px] opacity-50 mt-1">
-                      {m.label}
-                    </div>
-                    <p className="text-sm opacity-60 max-w-[180px]">
-                      {m.desc}
-                    </p>
+                  <div key={i} className="text-center">
+                    <div className="text-2xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: m.color }}>{m.value}</div>
+                    <div className="text-[9px] uppercase tracking-wider opacity-40">{m.label}</div>
                   </div>
                 ))}
               </div>
+            </div>
 
-              <Card dark className="py-8 px-12">
-                <div className="text-xl font-medium mb-4 text-center">Projected Savings at Scale</div>
-                <div className="flex items-center justify-center gap-8 text-base">
-                  <div className="text-center">
-                    <div className="opacity-50 text-sm mb-1">Volume</div>
-                    <div className="font-semibold">5,000/mo</div>
+            <div className="grid grid-cols-12 gap-5 flex-1">
+              {/* Left - Value breakdown table */}
+              <div className="col-span-7 flex flex-col gap-4">
+                <Card className="flex-1">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-sm">Total Annual Value by Dispute Amount</h3>
+                    <div className="text-[9px] px-2 py-1 rounded-full opacity-50" style={{ backgroundColor: colors.cream }}>
+                      4,000/mo • 12.5% preventable loss
+                    </div>
                   </div>
-                  <div className="opacity-30">×</div>
-                  <div className="text-center">
-                    <div className="opacity-50 text-sm mb-1">Savings</div>
-                    <div className="font-semibold">$18/dispute</div>
+
+                  {/* Table header */}
+                  <div className="grid grid-cols-4 gap-3 pb-2 border-b border-black/10 mb-2">
+                    {['Avg Amount', 'Loss Prevention', 'Labor Savings', 'Total Value'].map((header, i) => (
+                      <div key={i} className="text-[9px] uppercase tracking-wider opacity-40 font-semibold">
+                        {header}
+                      </div>
+                    ))}
                   </div>
-                  <div className="opacity-30">=</div>
-                  <div className="text-center">
-                    <div className="opacity-50 text-sm mb-1">Monthly</div>
-                    <div className="font-semibold" style={{color: colors.accent}}>$90,000</div>
+
+                  {/* Table rows */}
+                  <div className="space-y-1.5">
+                    {[
+                      { amount: '$150', loss: '$900K', labor: '$728K', total: '$1.6M', highlight: false },
+                      { amount: '$200', loss: '$1.2M', labor: '$728K', total: '$1.9M', highlight: true },
+                      { amount: '$250', loss: '$1.5M', labor: '$728K', total: '$2.2M', highlight: false },
+                    ].map((row, i) => (
+                      <div
+                        key={i}
+                        className="grid grid-cols-4 gap-3 py-2.5 px-3 items-center"
+                        style={{
+                          backgroundColor: row.highlight ? colors.accentMuted : 'transparent',
+                          borderRadius: '12px',
+                          border: row.highlight ? `1px solid ${colors.accent}30` : '1px solid transparent'
+                        }}
+                      >
+                        <div className="text-sm font-semibold" style={headerStyle}>{row.amount}</div>
+                        <div className="text-sm font-medium" style={{ color: colors.success }}>{row.loss}</div>
+                        <div className="text-sm opacity-60">{row.labor}</div>
+                        <div className="text-lg font-semibold" style={{ ...headerStyle, color: row.highlight ? colors.accent : colors.charcoal }}>
+                          {row.total}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="opacity-30">→</div>
-                  <div className="text-center">
-                    <div className="opacity-50 text-sm mb-1">Annual</div>
-                    <div className="font-semibold" style={{color: colors.accent}}>$1.08M</div>
+
+                  <div className="mt-3 pt-3 border-t border-black/5 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4" style={{ color: colors.success }} strokeWidth={1.5} />
+                    <span className="text-xs"><span className="font-semibold" style={{ color: colors.success }}>Loss prevention often exceeds labor savings</span> — better evidence, faster response, consistent decisions.</span>
                   </div>
+                </Card>
+
+                {/* Input assumptions */}
+                <div className="flex items-center gap-3">
+                  {[
+                    { label: 'Volume', value: '4K/mo', icon: BarChart3 },
+                    { label: 'Preventable Rate', value: '12.5%', icon: Target },
+                    { label: 'Avg Dispute', value: '$200', icon: DollarSign },
+                    { label: 'Cost Reduction', value: '$18/case', icon: TrendingDown },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 flex items-center gap-2 p-2.5"
+                      style={{ backgroundColor: 'white', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.04)' }}
+                    >
+                      <item.icon className="w-3.5 h-3.5 opacity-40" strokeWidth={1.5} />
+                      <div>
+                        <div className="text-[8px] uppercase tracking-wider opacity-40">{item.label}</div>
+                        <div className="text-xs font-semibold">{item.value}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="text-center mt-4 opacity-40 text-sm">
-                  Based on $30 manual cost → $12 with Salient
+              </div>
+
+              {/* Right - Summary */}
+              <div className="col-span-5 flex flex-col gap-4">
+                <Card dark className="flex-1 p-6">
+                  <div className="text-[10px] uppercase tracking-wider opacity-40 mb-4">At $200 Avg. Dispute Amount</div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between py-3 px-4 rounded-lg" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4" style={{ color: colors.success }} strokeWidth={1.5} />
+                        <span className="text-sm opacity-70">Loss Prevention</span>
+                      </div>
+                      <span className="text-xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: colors.success }}>$1.2M</span>
+                    </div>
+                    <div className="flex items-center justify-between py-3 px-4 rounded-lg" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 opacity-50" strokeWidth={1.5} />
+                        <span className="text-sm opacity-70">Labor Savings</span>
+                      </div>
+                      <span className="text-xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif' }}>$728K</span>
+                    </div>
+                    <div className="flex items-center justify-between py-4 px-4 rounded-xl" style={{ backgroundColor: colors.accentMuted }}>
+                      <span className="text-sm font-semibold" style={{ color: colors.accent }}>Total Annual Value</span>
+                      <span className="text-3xl font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: colors.accent }}>$1.9M</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-white/10 text-center">
+                    <div className="text-[10px] opacity-40 mb-1">Monthly Impact</div>
+                    <div className="text-lg font-semibold" style={{ color: colors.accent }}>$158K/month</div>
+                  </div>
+                </Card>
+
+                {/* Value drivers */}
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { icon: CheckCircle, label: 'Fewer incorrect decisions', color: colors.success },
+                    { icon: Clock, label: 'Faster resolution times', color: colors.accent },
+                    { icon: FileText, label: 'Better evidence packages', color: colors.charcoal },
+                    { icon: Shield, label: 'Reduced exam risk', color: colors.success },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 p-2.5"
+                      style={{ backgroundColor: 'white', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.04)' }}
+                    >
+                      <item.icon className="w-3.5 h-3.5" style={{ color: item.color }} strokeWidth={1.5} />
+                      <span className="text-[10px]">{item.label}</span>
+                    </div>
+                  ))}
                 </div>
-              </Card>
+              </div>
             </div>
           </SlideCanvas>
         );
@@ -1369,19 +2097,24 @@ export default function Presentation() {
           <SlideCanvas theme="dark">
             <Badge light>Key Takeaways</Badge>
 
-            <div className="flex-1 flex flex-col justify-center gap-10">
-              <h2 className="text-6xl" style={headerStyle}>Why Salient for Yendo?</h2>
+            <div className="flex-1 flex flex-col justify-center gap-8">
+              <div className="space-y-3">
+                <h2 className="text-6xl" style={headerStyle}>Why Salient?</h2>
+                <p className="text-lg opacity-40 max-w-2xl">
+                  Purpose-built dispute automation for regulated consumer lenders.
+                </p>
+              </div>
 
               <div className="grid grid-cols-4 gap-4">
                 {[
-                  { icon: Zap, title: '12-Step Automation', desc: 'End-to-end dispute lifecycle' },
-                  { icon: CheckCircle, title: 'Evidence-Based', desc: '2+ strong links standard' },
-                  { icon: Shield, title: 'Compliance-First', desc: 'Reg Z, E, CFPB built-in' },
-                  { icon: Layers, title: 'Mastercom Direct', desc: 'API case filing & lifecycle' },
+                  { icon: Zap, title: '12-Step Automation', desc: 'End-to-end dispute lifecycle', highlight: 'Minutes, not days' },
+                  { icon: Target, title: 'Evidence-Based', desc: '2+ strong links standard', highlight: 'Consistent outcomes' },
+                  { icon: Shield, title: 'Compliance-First', desc: 'Reg Z, E, CFPB built-in', highlight: 'Exam-ready' },
+                  { icon: Layers, title: 'Mastercom Direct', desc: 'API case filing & lifecycle', highlight: 'Full integration' },
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-4 p-5"
+                    className="p-5 space-y-4"
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.03)',
                       borderRadius: '24px',
@@ -1389,25 +2122,28 @@ export default function Presentation() {
                     }}
                   >
                     <div
-                      className="w-11 h-11 flex items-center justify-center flex-shrink-0"
-                      style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px'}}
+                      className="w-11 h-11 flex items-center justify-center"
+                      style={{ backgroundColor: i === 0 ? colors.accentMuted : 'rgba(255,255,255,0.08)', borderRadius: '24px' }}
                     >
-                      <item.icon className="w-5 h-5 opacity-50" strokeWidth={1.5} />
+                      <item.icon className="w-5 h-5" style={{ opacity: i === 0 ? 1 : 0.5, color: i === 0 ? colors.accent : 'white' }} strokeWidth={1.5} />
                     </div>
                     <div>
                       <div className="font-semibold text-sm">{item.title}</div>
-                      <div className="text-xs opacity-40">{item.desc}</div>
+                      <div className="text-xs opacity-40 mt-1">{item.desc}</div>
+                    </div>
+                    <div className="text-[10px] font-medium pt-2 border-t border-white/10" style={{ color: colors.accent }}>
+                      {item.highlight}
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="text-center space-y-4 mt-4">
-                <div className="text-2xl opacity-60" style={headerStyle}>
+              <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                <div className="text-xl opacity-50" style={headerStyle}>
                   Faster, more accurate decisions at a lower per-dispute cost.
                 </div>
                 <div
-                  className="inline-flex items-center gap-2 px-6 py-3 mt-4 text-sm font-medium transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium transition-all duration-200"
                   style={{
                     backgroundColor: colors.accent,
                     color: colors.charcoal,
