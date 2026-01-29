@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, File, MessageSquare, TrendingUp, Target, Upload, Filter, Download, Globe, BarChart3, ArrowLeft, ThumbsUp, ThumbsDown, RefreshCw, ChevronDown, Store, Wifi } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, AlertTriangle, Clock, DollarSign, Shield, Zap, CheckCircle, FileText, TrendingDown, Users, Scale, CreditCard, Database, Settings, Search, Send, RotateCcw, Archive, Brain, Eye, Layers, XCircle, Flag, User, Mail, Phone, MapPin, File, MessageSquare, TrendingUp, Target, Upload, Filter, Download, Globe, BarChart3, ArrowLeft, ThumbsUp, ThumbsDown, RefreshCw, ChevronDown, Store, Wifi, Loader2 } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 // Salient Brand Colors
 const colors = {
@@ -122,6 +124,9 @@ const NAV_HEIGHT = 56;
 export default function Presentation() {
   const [current, setCurrent] = useState(0);
   const [scale, setScale] = useState(1);
+  const [exporting, setExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState(0);
+  const slideRef = useRef(null);
 
   const prev = () => setCurrent(c => Math.max(0, c - 1));
   const next = () => setCurrent(c => Math.min(slides.length - 1, c + 1));
@@ -177,6 +182,66 @@ export default function Presentation() {
   };
 
   const headerStyle = { fontFamily: 'Halant, Georgia, serif', lineHeight: '0.9', letterSpacing: '-0.02em' };
+
+  // PDF Export function
+  const exportToPdf = useCallback(async () => {
+    if (exporting) return;
+
+    setExporting(true);
+    setExportProgress(0);
+
+    const originalSlide = current;
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      format: [SLIDE_WIDTH, SLIDE_HEIGHT],
+    });
+
+    try {
+      for (let i = 0; i < slides.length; i++) {
+        // Update progress
+        setExportProgress(Math.round((i / slides.length) * 100));
+
+        // Navigate to slide
+        setCurrent(i);
+
+        // Wait for render
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        // Capture the slide
+        if (slideRef.current) {
+          const canvas = await html2canvas(slideRef.current, {
+            scale: 2, // Higher quality
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: null,
+            width: SLIDE_WIDTH,
+            height: SLIDE_HEIGHT,
+          });
+
+          const imgData = canvas.toDataURL('image/png');
+
+          if (i > 0) {
+            pdf.addPage([SLIDE_WIDTH, SLIDE_HEIGHT], 'landscape');
+          }
+
+          pdf.addImage(imgData, 'PNG', 0, 0, SLIDE_WIDTH, SLIDE_HEIGHT);
+        }
+      }
+
+      // Save the PDF
+      pdf.save('salient-presentation.pdf');
+
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      alert('PDF export failed. Please try again.');
+    } finally {
+      // Restore original slide
+      setCurrent(originalSlide);
+      setExporting(false);
+      setExportProgress(0);
+    }
+  }, [current, exporting]);
 
   const renderSlide = () => {
     const slide = slides[current];
@@ -2189,14 +2254,15 @@ export default function Presentation() {
       >
         <div
           key={current}
-          className="slide-container overflow-hidden"
+          ref={slideRef}
+          className={exporting ? 'overflow-hidden' : 'slide-container overflow-hidden'}
           style={{
             width: SLIDE_WIDTH,
             height: SLIDE_HEIGHT,
-            transform: `scale(${scale})`,
+            transform: exporting ? 'scale(1)' : `scale(${scale})`,
             transformOrigin: 'center center',
-            borderRadius: '24px',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.03)',
+            borderRadius: exporting ? '0' : '24px',
+            boxShadow: exporting ? 'none' : '0 25px 50px -12px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.03)',
             flexShrink: 0,
           }}
         >
@@ -2215,7 +2281,7 @@ export default function Presentation() {
         <div className="flex items-center justify-center gap-3">
           <button
             onClick={prev}
-            disabled={current === 0}
+            disabled={current === 0 || exporting}
             className="flex-1 max-w-[140px] flex items-center justify-center gap-2 px-5 py-3 text-white text-sm disabled:opacity-20 transition-all duration-200 hover:bg-white/15 active:scale-95"
             style={{backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '24px', minHeight: '44px'}}
           >
@@ -2224,16 +2290,32 @@ export default function Presentation() {
 
           {/* Slide counter - compact display */}
           <div className="text-white/60 text-sm font-medium min-w-[60px] text-center">
-            {current + 1} / {slides.length}
+            {exporting ? `${exportProgress}%` : `${current + 1} / ${slides.length}`}
           </div>
 
           <button
             onClick={next}
-            disabled={current === slides.length - 1}
+            disabled={current === slides.length - 1 || exporting}
             className="flex-1 max-w-[140px] flex items-center justify-center gap-2 px-5 py-3 text-sm font-medium disabled:opacity-20 transition-all duration-200 hover:opacity-90 active:scale-95"
             style={{backgroundColor: colors.cream, color: colors.charcoal, borderRadius: '24px', minHeight: '44px'}}
           >
             Next <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
+          </button>
+
+          {/* Export PDF button */}
+          <button
+            onClick={exportToPdf}
+            disabled={exporting}
+            className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-all duration-200 hover:opacity-90 active:scale-95 disabled:opacity-50"
+            style={{backgroundColor: colors.accent, color: colors.charcoal, borderRadius: '24px', minHeight: '44px'}}
+            title="Export to PDF"
+          >
+            {exporting ? (
+              <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
+            ) : (
+              <Download className="w-4 h-4" strokeWidth={1.5} />
+            )}
+            <span className="hidden sm:inline">{exporting ? 'Exporting...' : 'PDF'}</span>
           </button>
         </div>
 
