@@ -130,7 +130,6 @@ export default function BusinessCalculator() {
   // Salient target time per claim (fixed at 6 minutes)
   const salientTargetTime = 6;
   const fraudPreventionImprovement = 4; // 4% improvement in fraud loss prevention
-  const autoDenialRate = 1; // 1% reduction in claims via auto-denial from trend analysis
 
   // Dispute flow assumptions (percentages)
   const claimDenialRate = 4; // % denied at claim decision
@@ -164,14 +163,11 @@ export default function BusinessCalculator() {
   const timeReductionPercent = Math.max(0, Math.min(95, Math.round(((currentTimePerClaim - salientTargetTime) / currentTimePerClaim) * 100)));
   const operationalEfficiency = operationalCost * (timeReductionPercent / 100);
 
-  // Auto-denial savings (1% reduction in claims = 1% reduction in operational cost)
-  const autoDenialSavings = operationalCost * (autoDenialRate / 100);
-
   // Fraud loss prevention
   const fraudLossPrevention = totalBankLoss * (fraudPreventionImprovement / 100);
 
   // Total Value
-  const totalValue = operationalEfficiency + autoDenialSavings + fraudLossPrevention;
+  const totalValue = operationalEfficiency + fraudLossPrevention;
 
   const headerStyle = { fontFamily: 'Halant, Georgia, serif', lineHeight: '0.9', letterSpacing: '-0.02em' };
 
@@ -420,25 +416,10 @@ export default function BusinessCalculator() {
                 </div>
               </div>
 
-              {/* Auto-Denial */}
-              <div className="mb-1.5">
-                <div className="flex items-center gap-1 mb-0.5">
-                  <div className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[7px] font-bold" style={{ backgroundColor: colors.accentMuted, color: colors.accent }}>3</div>
-                  <span className="font-semibold text-[10px]">Auto-Denial</span>
-                  <span className="text-[8px] opacity-40">(trend analysis)</span>
-                </div>
-                <div className="ml-4 text-[9px]">
-                  <div className="flex justify-between py-0.5 px-1 rounded" style={{ backgroundColor: 'rgba(61,124,94,0.1)' }}>
-                    <span className="opacity-60">{autoDenialRate}% claim reduction</span>
-                    <span className="font-semibold" style={{ color: colors.success }}>{formatCurrency(autoDenialSavings)}</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Total Operational Savings */}
               <div className="mt-1.5 p-1.5 rounded-lg flex justify-between items-center" style={{ backgroundColor: colors.success, color: 'white' }}>
                 <span className="font-semibold text-[10px]">Total Operational Savings</span>
-                <span className="text-base font-bold" style={{ fontFamily: 'Halant, Georgia, serif' }}>{formatCurrency(operationalEfficiency + autoDenialSavings)}</span>
+                <span className="text-base font-bold" style={{ fontFamily: 'Halant, Georgia, serif' }}>{formatCurrency(operationalEfficiency)}</span>
               </div>
             </Card>
 
@@ -452,12 +433,12 @@ export default function BusinessCalculator() {
                     <Clock className="w-2.5 h-2.5" style={{ color: colors.success }} strokeWidth={1.5} />
                     <span className="text-[9px] opacity-70">Operational savings</span>
                   </div>
-                  <span className="text-xs font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: colors.success }}>{formatCurrency(operationalEfficiency + autoDenialSavings)}</span>
+                  <span className="text-xs font-semibold" style={{ fontFamily: 'Halant, Georgia, serif', color: colors.success }}>{formatCurrency(operationalEfficiency)}</span>
                 </div>
                 <div className="flex items-center justify-between py-1 px-1.5 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
                   <div className="flex items-center gap-1">
                     <Shield className="w-2.5 h-2.5 opacity-50" strokeWidth={1.5} />
-                    <span className="text-[9px] opacity-70">Fraud loss prevention</span>
+                    <span className="text-[9px] opacity-70">Fraud loss prevention ({formatCurrency(totalBankLoss)} × {fraudPreventionImprovement}%)</span>
                   </div>
                   <span className="text-xs font-semibold" style={{ fontFamily: 'Halant, Georgia, serif' }}>{formatCurrency(fraudLossPrevention)}</span>
                 </div>
@@ -481,7 +462,7 @@ export default function BusinessCalculator() {
                   { icon: Users, label: 'Experience', desc: 'Faster resolution', impacts: [{ text: 'Retention', up: true }, { text: 'CLV', up: true }] },
                   { icon: CheckCircle, label: 'Consistency', desc: 'Uniform decisions', impacts: [{ text: 'Risk', up: false }] },
                   { icon: Scale, label: 'Compliance', desc: '100% audit coverage', impacts: [{ text: 'Risk', up: false }] },
-                  { icon: Zap, label: 'Scalability', desc: 'No linear cost', impacts: [{ text: 'COGS', up: false }] },
+                  { icon: Zap, label: 'Scalability', desc: 'Better than hiring', impacts: [{ text: 'COGS', up: false }] },
                 ].map((item, i) => (
                   <div key={i} className="p-1 rounded flex items-center justify-between" style={{ backgroundColor: colors.cream }}>
                     <div className="flex items-center gap-1">
